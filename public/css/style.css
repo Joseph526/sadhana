@@ -1,0 +1,157 @@
+body {
+    color: #072892;
+    font-family: 'Muli', 'sans-serif';
+    background-color: #dfdcd3;
+}
+
+/* Navigation */
+#lotus {
+    max-width: 80px;
+    margin-right: 10px;
+}
+
+.navbar-light .navbar-brand {
+    font-weight: bold;
+    color: #072892;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: #072892;
+    font-weight: bold;
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+    color: #0C44F8;
+}
+
+.nav-link {
+    display: inline-block;
+}
+
+/* Welcome Page */
+.sadhana-welcome {
+    height: 100vh;
+    background-color: rgba(0,0,0,.1);
+    display: block;
+    position: relative;
+}
+
+.sadhana-welcome::after {
+    content: "";
+    background-image: url('../img/blue-pink.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+.vertical {
+    top: 65%;
+    transform: translateY(-65%);
+    position: absolute;
+    margin: auto 8vw;
+}
+
+#tag-line {
+    font-size: 78px;
+    font-weight: bold;
+    color: #fff;
+}
+
+#tag-line-sub {
+    font-size: 54px;
+    font-weight: bold;
+    color: #072892;
+}
+
+#tag-line-text {
+    color: #fff;
+    font-weight: 300;
+}
+
+/* Log In Form */
+form {
+    background-color: rgba(255, 255, 255, .9);
+    padding: 50px;
+    border-radius: 2px;
+}
+
+form h2 {
+    text-align: center;
+}
+
+form button {
+    display: block;
+    margin: 0 auto;
+}
+
+input[type=text] {
+    -webkit-transition: all 0.30s ease-in-out;
+    -moz-transition: all 0.30s ease-in-out;
+    -ms-transition: all 0.30s ease-in-out;
+    -o-transition: all 0.30s ease-in-out;
+    outline: none;
+    width: 100%;
+    padding: 3px 0px 3px 3px;
+    margin: 5px 1px 3px 0px;
+    border: 1px solid #072892;
+}
+
+input[type=text]:focus {
+    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+    padding: 3px 0px 3px 3px;
+    margin: 5px 1px 3px 0px;
+    border: 1px solid rgba(12, 68, 248, 1);
+}
+   
+
+.icon {
+    display: inline-block;
+    text-align: center;
+    font-size: 22px;
+    padding: 6px;
+    position: relative;
+    margin-left: 10px;
+}
+
+#log-in {
+    margin-top: 20px;
+}
+
+#log-in, .icon {
+    background-color: transparent;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    border: 2px solid #072892;
+    color: #072892;
+}
+
+#log-in:hover {
+    cursor: pointer;
+}
+
+/* Footer */
+.footer {
+    height: 30vh;
+    background-color: #072892;
+}
+
+.footer h2 {
+    font-weight: bold;
+}
+
+.icon-footer {
+    color: #fff;
+    border-color: #fff;
+}
+
+#masthead {
+    text-align: center;
+    color: #fff;
+    padding-top: 40px;
+}
