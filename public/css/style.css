@@ -1,3 +1,17 @@
+/* Navigation */
+.navbar-light .navbar-nav .nav-link {
+    color: #072892;
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+    color: #072892;
+    border-bottom: 2px solid #072892;
+}
+
+.nav-link {
+    display: inline-block;
+}
+
 /* Welcome Page */
 .sadhana-welcome {
     height: 100vh;
@@ -8,10 +22,9 @@
 
 .sadhana-welcome::after {
     content: "";
-    background-image: url('../img/emerald-pink.jpg');
+    background-image: url('../img/blue-pink.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-    /* opacity: .6; */
     top: 0;
     left: 0;
     bottom: 0;
@@ -24,11 +37,11 @@
     top: 55%;
     transform: translateY(-55%);
     position: absolute;
-    margin: auto 10vw;
+    margin: auto 8vw;
 }
 
 #tag-line {
-    font-size: 72px;
+    font-size: 78px;
     font-weight: bold;
     color: #fff;
 }
@@ -36,12 +49,12 @@
 #tag-line-sub {
     font-size: 54px;
     font-weight: bold;
-    color: #25575a;
+    color: #072892;
 }
 
 #tag-line-text {
-    font-size: 18px;
     color: #fff;
+    font-weight: 300;
 }
 
 /* Log In Form */
@@ -56,14 +69,15 @@ form {
     text-align: center;
     padding: 10px;
     position: relative;
+    margin-left: 10px;
 }
 
 #log-in, .icon {
     height: 50px;
     width: 50px;
     border-radius: 50%;
-    border: 2px solid #25575a;
-    color: #25575a;
+    border: 2px solid #072892;
+    color: #072892;
 }
 
 #log-in:hover {
@@ -74,7 +88,7 @@ form {
 /* Footer */
 .footer {
     height: 30vh;
-    background-color: #25575a;
+    background-color: #072892;
 }
 
 #masthead {
