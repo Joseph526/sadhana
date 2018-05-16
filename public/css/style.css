@@ -1,0 +1,70 @@
+/* Welcome Page */
+.sadhana-welcome {
+    height: 100vh;
+    background-image: url('../img/bighorns.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.vertical {
+    top: 60%;
+    transform: translateY(-40%);
+    position: absolute;
+    margin: auto 10vw;
+}
+
+#tag-line {
+    font-size: 72px;
+    font-weight: bold;
+    color: #fff;
+}
+
+#tag-line-sub {
+    font-size: 54px;
+    font-weight: bold;
+    color: #25575a;
+}
+
+#tag-line-text {
+    font-size: 18px;
+    color: #fff;
+}
+
+/* Log In Form */
+form {
+    background-color: rgba(255, 255, 255, .8);
+    padding: 20px;
+    border-radius: 2px;
+}
+
+.icon {
+    display: inline-block;
+    text-align: center;
+    padding: 10px;
+    position: relative;
+}
+
+#log-in, .icon {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    border: 2px solid #25575a;
+    color: #25575a;
+}
+
+#log-in:hover {
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 1)
+}
+
+/* Footer */
+.footer {
+    height: 30vh;
+    background-color: #25575a;
+}
+
+#masthead {
+    text-align: center;
+    color: #fff;
+    padding-top: 40px;
+}

@@ -1,25 +1,21 @@
 // Dependencies
 // =============================================================
-var path = require("path");
-
-var lunches = [
-    {
-      lunch: "Beet & Goat Cheese Salad with minestrone soup."
-    }, {
-      lunch: "Pizza, two double veggie burgers, fries with a Big Gulp"
-    }
-  ];
+var express = require("express");
+var router = express.Router();
+// TODO: link models
 
 // Routes
 // =============================================================
-module.exports = function(app) {
+// module.exports = function(app) {
 
-  app.get("/", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/test.html"));
-  });
+//   app.get("/", function(req, res) {
+//     res.render("index");
+//   });
 
-  app.get("/weekday", function(req, res) {
+// };
+
+router.get("/", function(req, res) {
     res.render("index");
-  });
+});
 
-};
+module.exports = router;
