@@ -1,0 +1,20 @@
+{
+  "name": "sadhana",
+  "version": "1.0.0",
+  "description": "A daily practice journal to help you achieve your goals",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bunsushi/sadhana.git"
+  },
+  "author": "Tegan Bunsu Ashby",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bunsushi/sadhana/issues"
+  },
+  "homepage": "https://github.com/bunsushi/sadhana#readme"
+}
