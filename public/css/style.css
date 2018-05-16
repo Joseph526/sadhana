@@ -1,6 +1,7 @@
 body {
     color: #072892;
     font-family: 'Muli', 'sans-serif';
+    background-color: #dfdcd3;
 }
 
 /* Navigation */
@@ -82,7 +83,8 @@ form {
 .icon {
     display: inline-block;
     text-align: center;
-    padding: 10px;
+    font-size: 22px;
+    padding: 6px;
     position: relative;
     margin-left: 10px;
 }
@@ -104,6 +106,15 @@ form {
 .footer {
     height: 30vh;
     background-color: #072892;
+}
+
+.footer h2 {
+    font-weight: bold;
+}
+
+.icon-footer {
+    color: #fff;
+    border-color: #fff;
 }
 
 #masthead {
