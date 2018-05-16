@@ -1,14 +1,28 @@
 /* Welcome Page */
 .sadhana-welcome {
     height: 100vh;
-    background-image: url('../img/bighorns.jpg');
+    background-color: rgba(0,0,0,.2);
+    display: block;
+    position: relative;
+}
+
+.sadhana-welcome::after {
+    content: "";
+    background-image: url('../img/emerald-pink.jpg');
     background-size: cover;
     background-repeat: no-repeat;
+    /* opacity: .6; */
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
 }
 
 .vertical {
-    top: 60%;
-    transform: translateY(-40%);
+    top: 55%;
+    transform: translateY(-55%);
     position: absolute;
     margin: auto 10vw;
 }
@@ -32,7 +46,7 @@
 
 /* Log In Form */
 form {
-    background-color: rgba(255, 255, 255, .8);
+    background-color: rgba(255, 255, 255, .9);
     padding: 20px;
     border-radius: 2px;
 }
