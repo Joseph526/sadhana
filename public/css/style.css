@@ -1,8 +1,19 @@
 body {
     color: #072892;
+    font-family: 'Muli', 'sans-serif';
 }
 
 /* Navigation */
+#lotus {
+    max-width: 80px;
+    margin-right: 10px;
+}
+
+.navbar-light .navbar-brand {
+    font-weight: bold;
+    color: #072892;
+}
+
 .navbar-light .navbar-nav .nav-link {
     color: #072892;
     font-weight: bold;
@@ -77,6 +88,7 @@ form {
 }
 
 #log-in, .icon {
+    background-color: transparent;
     height: 50px;
     width: 50px;
     border-radius: 50%;
@@ -86,7 +98,6 @@ form {
 
 #log-in:hover {
     cursor: pointer;
-    background-color: rgba(255, 255, 255, 1)
 }
 
 /* Footer */
