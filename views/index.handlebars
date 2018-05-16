@@ -9,11 +9,22 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/tour">How It Works</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">Our Story</a>
+                    </li>
+                </ul>
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link" href="#">Log In
-                        <div class="icon">
-                            <i class="fas fa-user"></i>
-                        </div></a>
+                    <li class="nav-item">
+                        {{!-- This should actually be a pop-up modal --}}
+                        <a class="nav-link" href="/dashboard">Log In
+                            <div class="icon">
+                                <i class="fas fa-user"></i>
+                            </div>
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -24,14 +35,16 @@
         <div class="row">
             <div class="offset-lg-1 col-lg-5">
                 <h1 id="tag-line">hello, world</h1>
-                {{!-- <h1 id="tag-line-sub">try me</h1> --}}
+                {{!--
+                <h1 id="tag-line-sub">try me</h1> --}}
                 <h2 id="tag-line-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at mauris eu elit porttitor sodales ac sed
-                    nisl.</h2>
+                    nisl.
+                </h2>
             </div>
             <div class="offset-lg-1 col-lg-5">
                 <form>
                     <div class="form-group">
-                        <h2>Sign Up</h2>
+                        <h2>Sign Up For Free</h2>
                         <label for="username">Username</label>
                         <br>
                         <input type="text" id="username" name="username">

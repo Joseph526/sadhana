@@ -1,11 +1,15 @@
-/* Navigation */
-.navbar-light .navbar-nav .nav-link {
+body {
     color: #072892;
 }
 
-.navbar-light .navbar-nav .nav-link:hover {
+/* Navigation */
+.navbar-light .navbar-nav .nav-link {
     color: #072892;
-    border-bottom: 2px solid #072892;
+    font-weight: bold;
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+    color: #0C44F8;
 }
 
 .nav-link {
@@ -15,7 +19,7 @@
 /* Welcome Page */
 .sadhana-welcome {
     height: 100vh;
-    background-color: rgba(0,0,0,.2);
+    background-color: rgba(0,0,0,.1);
     display: block;
     position: relative;
 }
@@ -60,7 +64,7 @@
 /* Log In Form */
 form {
     background-color: rgba(255, 255, 255, .9);
-    padding: 20px;
+    padding: 50px;
     border-radius: 2px;
 }
 
