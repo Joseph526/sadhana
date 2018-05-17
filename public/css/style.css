@@ -251,20 +251,64 @@ input[type=text]:focus, input[type=password]:focus, input[type=email]:focus {
 /* Dashboard Page */
 .dashboard {
     min-height: 100vh;
+    background-color: rgba(0,0,0,.2);
+    display: block;
+    position: relative;
+}
+
+.dashboard::after {
+    content: "";
+    background-image: url('../img/blue-pink.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
 }
 
 /* Sidebar */
 .sidebar {
-    background-color: #072892;
+    background-color: #021245;
     min-height: 100vh;
     padding-top: 20px;
+    text-align: center;
 }
 
-.sidebar a {
+.sidebar .icon {
     color: #fff;
     font-weight: bold;
+    border-color: #fff;
 }
 
-.sidebar a:hover {
-    border-left: 2px solid #fff;
+.sidebar .icon:hover {
+    cursor: pointer;
+}
+
+.sidebar .nav-item {
+    margin-bottom: 20px;
+}
+
+#lotus-logo {
+    display: block;
+    margin: 0 auto;
+    max-width: 80px;
+}
+
+/* Feed */
+.feed {
+    padding: 20px;
+}
+
+.feed h1 {
+    text-align: center;
+}
+
+.main {
+    margin: 30px;
+    background-color: rgba(255, 255, 255, .9);
+    height: 30vh;
+    border-radius: 5px;
 }
