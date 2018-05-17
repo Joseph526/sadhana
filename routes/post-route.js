@@ -19,7 +19,7 @@ router.get("/log_in", function(req, res) {
 
 // Dashboard
 router.get("/dashboard", function(req, res) {
-    res.render("dashboard");
+    res.render("dashboard", {layout: 'user'});
 });
 
 // Pomodoro Timer
