@@ -7,9 +7,14 @@ var router = express.Router();
 // Routes
 // =============================================================
 
-// Log In Page
+// Landing Page
 router.get("/", function(req, res) {
     res.render("index");
+});
+
+// Log In
+router.get("/log_in", function(req, res) {
+    res.render("login");
 });
 
 // Dashboard

@@ -68,6 +68,7 @@ body {
     transform: translateY(-65%);
     position: absolute;
     margin: auto 8vw;
+    width: 84vw;
 }
 
 #tag-line {
@@ -87,7 +88,7 @@ body {
     font-weight: 300;
 }
 
-/* Log In Form */
+/* Sign Up Form */
 form {
     background-color: rgba(255, 255, 255, .9);
     padding: 50px;
@@ -96,6 +97,7 @@ form {
 
 form h2 {
     text-align: center;
+    margin-bottom: 30px;
 }
 
 form button {
@@ -133,7 +135,9 @@ input[type=text]:focus {
 }
 
 #log-in {
-    margin-top: 20px;
+    /* margin-top: 20px; */
+    display: block;
+    margin: 0 auto;
 }
 
 #log-in, .icon {
@@ -225,4 +229,21 @@ input[type=text]:focus {
     color: #fff;
     text-align: center;
     padding-top: 120px;
+}
+
+/* Log In Page */
+.sign-in {
+    height: 100vh;
+    display: block;
+    position: relative;
+}
+
+#forgot-pw {
+    text-align: right;
+}
+
+#new-user {
+    text-align: center;
+    padding-top: 20px;
+    margin-bottom: -20px;
 }
