@@ -26,6 +26,7 @@ body {
 
 .nav-link {
     display: inline-block;
+    padding: 0;
 }
 
 /* Welcome Page */
@@ -89,18 +90,18 @@ body {
 }
 
 /* Sign Up Form */
-form {
+.sadhana-welcome form, .sign-in form {
     background-color: rgba(255, 255, 255, .9);
     padding: 50px;
     border-radius: 2px;
 }
 
-form h2 {
+.sadhana-welcome form h2 {
     text-align: center;
     margin-bottom: 30px;
 }
 
-form button {
+.sadhana-welcome form button {
     display: block;
     margin: 0 auto;
 }
@@ -269,6 +270,36 @@ input[type=text]:focus, input[type=password]:focus, input[type=email]:focus {
     z-index: -1;
 }
 
+.user-navbar {
+    border-bottom: 1px solid #fff;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.user-navbar::after {
+    content: "";
+    clear: both;
+    display: inline-block;
+}
+
+.user-navbar a {
+    color: #fff;
+}
+
+.user-navbar input[type=search] {
+    border: none;
+    width: 500px;
+    padding: 5px 0px 5px 5px;
+    margin: 2px 1px 10px 0px;
+    background-color: rgba(255, 255, 255, .5);
+}
+
+input[type=search]:focus {
+    background-color: rgba(255, 255, 255, .9);
+    box-shadow: 0 0 5px rgba(255, 255, 255, 1);
+    border: 1px solid rgba(255, 255, 255, 1);
+}
+
 /* Sidebar */
 .sidebar {
     background-color: #021245;
@@ -285,6 +316,8 @@ input[type=text]:focus, input[type=password]:focus, input[type=email]:focus {
 
 .sidebar .icon:hover {
     cursor: pointer;
+    background-color: #fff;
+    color: #021245;
 }
 
 .sidebar .nav-item {
@@ -298,17 +331,14 @@ input[type=text]:focus, input[type=password]:focus, input[type=email]:focus {
 }
 
 /* Feed */
-.feed {
+
+.main {
+    background-color: rgba(255, 255, 255, .95);
+    height: 30vh;
+    border-radius: 5px;
     padding: 20px;
 }
 
-.feed h1 {
+.main h2 {
     text-align: center;
-}
-
-.main {
-    margin: 30px;
-    background-color: rgba(255, 255, 255, .9);
-    height: 30vh;
-    border-radius: 5px;
 }
