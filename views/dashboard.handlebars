@@ -1,34 +1,52 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container">
-        <img src="/img/lotus.svg" id="lotus" alt="Lotus by Callum Taylor from the Noun Project" />
-        <a class="navbar-brand" href="#"> sadhana</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-            aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            {{!--
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/tour">How It Works</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/about">Our Story</a>
-                </li>
-            </ul> --}}
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    {{!-- This should actually be a pop-up modal --}}
-                    <a class="nav-link" href="/dashboard">Hello, Tegan
+<div class="dashboard">
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-lg-1 sidebar">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <img src="/img/lotus.svg" id="lotus-logo" alt="Lotus by Callum Taylor from the Noun Project" /> sadhana
+                    </li>
+                    <li class="nav-item">
+                        {{!--
+                        <a class="nav-link" href="#">Habit</a> --}}
                         <div class="icon">
-                            <i class="fas fa-user"></i>
+                            <i class="fas fa-plus"></i>
                         </div>
-                    </a>
-                </li>
-            </ul>
+                    </li>
+                    <li class="nav-item">
+                        {{!--
+                        <a class="nav-link" href="#">Habit</a> --}}
+                        <div class="icon">
+                            <i class="far fa-clock"></i>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <main class="col-lg-11 feed">
+                <nav class="navbar navbar-expand-lg user-navbar">
+                    <form>
+                        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                    </form>
+                    <ul class="navbar-nav ml-auto">
+                        {{!-- <li class="nav-item">
+                            <a class="nav-link" href="#">Weather Widget</a>
+                        </li> --}}
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Hello, Tegan
+                                <div class="icon">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="main">
+                    <h2>You found the dashboard page</h2>
+                </div>
+            </main>
         </div>
     </div>
-</nav>
 
-<h1>You found the dashboard page</h1>
+</div>
+
+{{> footer}}

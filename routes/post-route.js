@@ -7,23 +7,19 @@ var router = express.Router();
 // Routes
 // =============================================================
 
-// Log In Page
+// Landing Page
 router.get("/", function(req, res) {
     res.render("index");
 });
 
-// About Page
-router.get("/about", function(req, res) {
-    res.render("about");
+// Log In
+router.get("/log_in", function(req, res) {
+    res.render("login");
 });
 
-// How It Works Page
-router.get("/tour", function(req, res) {
-    res.render("tour");
-});
 // Dashboard
 router.get("/dashboard", function(req, res) {
-    res.render("dashboard");
+    res.render("dashboard", {layout: 'user'});
 });
 
 // Pomodoro Timer
