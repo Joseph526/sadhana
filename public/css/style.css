@@ -30,7 +30,7 @@ body {
 
 /* Welcome Page */
 .sadhana-welcome {
-    height: 100vh;
+    height: 90vh;
     background-color: rgba(0,0,0,.1);
     display: block;
     position: relative;
@@ -47,6 +47,20 @@ body {
     right: 0;
     position: absolute;
     z-index: -1;
+}
+
+.sadhana-welcome::before {
+    content: "";
+    position: absolute;
+    display: block;
+    bottom: -46px;
+    border: 24px solid transparent;
+    border-top-color: #dfdcd3;
+    width: 24px;
+    height: 24px;
+    left: 50%;
+    margin-left: -24px;
+    z-index: 1;
 }
 
 .vertical {
@@ -94,6 +108,7 @@ input[type=text] {
     -moz-transition: all 0.30s ease-in-out;
     -ms-transition: all 0.30s ease-in-out;
     -o-transition: all 0.30s ease-in-out;
+    transition: all 0.30s ease-in-out;
     outline: none;
     width: 100%;
     padding: 3px 0px 3px 3px;
@@ -133,6 +148,49 @@ input[type=text]:focus {
 
 #log-in:hover {
     cursor: pointer;
+}
+
+/* Tour */
+.tour {
+    height: 80vh;
+    background-color: #072892;
+    color: #fff;
+    position: relative;
+}
+
+.tour::after {
+    content: "";
+    position: absolute;
+    display: block;
+    bottom: -46px;
+    border: 24px solid transparent;
+    border-top-color: #072892;
+    width: 24px;
+    height: 24px;
+    left: 50%;
+    margin-left: -24px;
+    z-index: 1;
+}
+
+/* About */
+.about {
+    height: 80vh;
+    background-color: #f8f9fa;
+    position: relative;
+}
+
+.about::after {
+    content: "";
+    position: absolute;
+    display: block;
+    bottom: -46px;
+    border: 24px solid transparent;
+    border-top-color: #f8f9fa;
+    width: 24px;
+    height: 24px;
+    left: 50%;
+    margin-left: -24px;
+    z-index: 1;
 }
 
 /* Footer */

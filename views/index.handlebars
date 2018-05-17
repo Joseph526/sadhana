@@ -1,6 +1,6 @@
 <div class="sadhana-welcome">
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
         <div class="container">
             <img src="/img/lotus.svg" id="lotus" alt="Lotus by Callum Taylor from the Noun Project" />
             <a class="navbar-brand" href="#"> sadhana</a>
@@ -12,10 +12,10 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/tour">How It Works</a>
+                        <a class="nav-link" href="#tour">How It Works</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/about">Our Story</a>
+                        <a class="nav-link" href="#about">Our Story</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
@@ -67,6 +67,18 @@
         </div>
     </div>
 </div>
+
+<section>
+    <div class="tour" id="tour">
+        {{> tour}}
+    </div>
+</section>
+
+<section>
+    <div class="about" id="about">
+        {{> about}}
+    </div>
+</section>
 
 <div class="footer">
     <div id="masthead">
