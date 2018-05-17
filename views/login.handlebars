@@ -1,0 +1,40 @@
+<div class="sign-in">
+    {{> navbar}}
+    <div class="vertical">
+        <div class="row">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
+                <form>
+                    <div class="form-group">
+                        <h2>Welcome Back!</h2>
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" placeholder="Username">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" placeholder="Password">
+                        <label>
+                            <input type="checkbox" value="remember-me">Remember me
+                        </label>
+                        <p id="forgot-pw">Forgot Password?</p>
+                        {{!-- Use this button for actual form submission and validation --}}
+
+                        {{!-- <button type="submit" id="log-in">
+                            <i class="fas fa-arrow-right"></i>
+                        </button> --}}
+
+                        {{!-- This a temporary prototype link --}}
+                        <a href="/dashboard">
+                            <div class="icon" id="log-in">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </a>
+                        <p id="new-user">Don't have an account? Sign Up</p>
+                    </div>
+                </form>
+            </div>
+            <div class="col-lg-3"></div>
+        </div>
+    </div>
+
+</div>
+
+{{> footer}}

@@ -26,11 +26,12 @@ body {
 
 .nav-link {
     display: inline-block;
+    padding: 0;
 }
 
 /* Welcome Page */
 .sadhana-welcome {
-    height: 100vh;
+    height: 90vh;
     background-color: rgba(0,0,0,.1);
     display: block;
     position: relative;
@@ -49,11 +50,26 @@ body {
     z-index: -1;
 }
 
+.sadhana-welcome::before {
+    content: "";
+    position: absolute;
+    display: block;
+    bottom: -46px;
+    border: 24px solid transparent;
+    border-top-color: #dfdcd3;
+    width: 24px;
+    height: 24px;
+    left: 50%;
+    margin-left: -24px;
+    z-index: 1;
+}
+
 .vertical {
     top: 65%;
     transform: translateY(-65%);
     position: absolute;
     margin: auto 8vw;
+    width: 84vw;
 }
 
 #tag-line {
@@ -73,38 +89,39 @@ body {
     font-weight: 300;
 }
 
-/* Log In Form */
-form {
+/* Sign Up Form */
+.sadhana-welcome form, .sign-in form {
     background-color: rgba(255, 255, 255, .9);
     padding: 50px;
     border-radius: 2px;
 }
 
-form h2 {
+.sadhana-welcome form h2 {
     text-align: center;
+    margin-bottom: 30px;
 }
 
-form button {
+.sadhana-welcome form button {
     display: block;
     margin: 0 auto;
 }
 
-input[type=text] {
+input[type=text], input[type=password], input[type=email] {
     -webkit-transition: all 0.30s ease-in-out;
     -moz-transition: all 0.30s ease-in-out;
     -ms-transition: all 0.30s ease-in-out;
     -o-transition: all 0.30s ease-in-out;
+    transition: all 0.30s ease-in-out;
     outline: none;
     width: 100%;
-    padding: 3px 0px 3px 3px;
-    margin: 5px 1px 3px 0px;
+    padding: 5px 0px 5px 5px;
+    margin: 2px 1px 10px 0px;
     border: 1px solid #072892;
+    background-color: transparent;
 }
 
-input[type=text]:focus {
-    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
-    padding: 3px 0px 3px 3px;
-    margin: 5px 1px 3px 0px;
+input[type=text]:focus, input[type=password]:focus, input[type=email]:focus {
+    box-shadow: 0 0 5px rgba(12, 68, 248, 1);
     border: 1px solid rgba(12, 68, 248, 1);
 }
    
@@ -119,7 +136,9 @@ input[type=text]:focus {
 }
 
 #log-in {
-    margin-top: 20px;
+    /* margin-top: 20px; */
+    display: block;
+    margin: 0 auto;
 }
 
 #log-in, .icon {
@@ -135,10 +154,67 @@ input[type=text]:focus {
     cursor: pointer;
 }
 
+/* Tour */
+.tour {
+    height: 80vh;
+    background-color: #072892;
+    color: #fff;
+    position: relative;
+}
+
+.tour::after {
+    content: "";
+    position: absolute;
+    display: block;
+    bottom: -46px;
+    border: 24px solid transparent;
+    border-top-color: #072892;
+    width: 24px;
+    height: 24px;
+    left: 50%;
+    margin-left: -24px;
+    z-index: 1;
+}
+
+/* About */
+.about {
+    max-height: 80vh;
+    background-color: #f8f9fa;
+    position: relative;
+    text-align: center;
+    display: block;
+    padding: 100px 0;
+}
+
+.about::after {
+    content: "";
+    position: absolute;
+    display: block;
+    bottom: -46px;
+    border: 24px solid transparent;
+    border-top-color: #f8f9fa;
+    width: 24px;
+    height: 24px;
+    left: 50%;
+    margin-left: -24px;
+    z-index: 1;
+}
+
+.profile {
+    max-width: 300px;
+    border-radius: 50%;
+    margin: 20px;
+}
+
+.team-members {
+    display: inline-block;
+}
+
 /* Footer */
 .footer {
-    height: 30vh;
+    height: 40vh;
     background-color: #072892;
+    position: relative;
 }
 
 .footer h2 {
@@ -151,7 +227,118 @@ input[type=text]:focus {
 }
 
 #masthead {
-    text-align: center;
     color: #fff;
-    padding-top: 40px;
+    text-align: center;
+    padding-top: 120px;
+}
+
+/* Log In Page */
+.sign-in {
+    height: 100vh;
+    display: block;
+    position: relative;
+}
+
+#forgot-pw {
+    text-align: right;
+}
+
+#new-user {
+    text-align: center;
+    padding-top: 20px;
+    margin-bottom: -20px;
+}
+
+/* Dashboard Page */
+.dashboard {
+    min-height: 100vh;
+    background-color: rgba(0,0,0,.2);
+    display: block;
+    position: relative;
+}
+
+.dashboard::after {
+    content: "";
+    background-image: url('../img/blue-pink.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+.user-navbar {
+    border-bottom: 1px solid #fff;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.user-navbar::after {
+    content: "";
+    clear: both;
+    display: inline-block;
+}
+
+.user-navbar a {
+    color: #fff;
+}
+
+.user-navbar input[type=search] {
+    border: none;
+    width: 500px;
+    padding: 5px 0px 5px 5px;
+    margin: 2px 1px 10px 0px;
+    background-color: rgba(255, 255, 255, .5);
+}
+
+input[type=search]:focus {
+    background-color: rgba(255, 255, 255, .9);
+    box-shadow: 0 0 5px rgba(255, 255, 255, 1);
+    border: 1px solid rgba(255, 255, 255, 1);
+}
+
+/* Sidebar */
+.sidebar {
+    background-color: #021245;
+    min-height: 100vh;
+    padding-top: 20px;
+    text-align: center;
+}
+
+.sidebar .icon {
+    color: #fff;
+    font-weight: bold;
+    border-color: #fff;
+}
+
+.sidebar .icon:hover {
+    cursor: pointer;
+    background-color: #fff;
+    color: #021245;
+}
+
+.sidebar .nav-item {
+    margin-bottom: 20px;
+}
+
+#lotus-logo {
+    display: block;
+    margin: 0 auto;
+    max-width: 80px;
+}
+
+/* Feed */
+
+.main {
+    background-color: rgba(255, 255, 255, .95);
+    height: 30vh;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.main h2 {
+    text-align: center;
 }
