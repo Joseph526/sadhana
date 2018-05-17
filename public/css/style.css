@@ -111,15 +111,14 @@ input[type=text] {
     transition: all 0.30s ease-in-out;
     outline: none;
     width: 100%;
-    padding: 3px 0px 3px 3px;
-    margin: 5px 1px 3px 0px;
+    padding: 5px 0px 5px 5px;
+    margin: 2px 1px 10px 0px;
     border: 1px solid #072892;
+    background-color: transparent;
 }
 
 input[type=text]:focus {
-    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
-    padding: 3px 0px 3px 3px;
-    margin: 5px 1px 3px 0px;
+    box-shadow: 0 0 5px rgba(12, 68, 248, 1);
     border: 1px solid rgba(12, 68, 248, 1);
 }
    
@@ -174,9 +173,12 @@ input[type=text]:focus {
 
 /* About */
 .about {
-    height: 80vh;
+    max-height: 80vh;
     background-color: #f8f9fa;
     position: relative;
+    text-align: center;
+    display: block;
+    padding: 100px 0;
 }
 
 .about::after {
@@ -193,10 +195,21 @@ input[type=text]:focus {
     z-index: 1;
 }
 
+.profile {
+    max-width: 300px;
+    border-radius: 50%;
+    margin: 20px;
+}
+
+.team-members {
+    display: inline-block;
+}
+
 /* Footer */
 .footer {
-    height: 30vh;
+    height: 40vh;
     background-color: #072892;
+    position: relative;
 }
 
 .footer h2 {
@@ -209,7 +222,7 @@ input[type=text]:focus {
 }
 
 #masthead {
-    text-align: center;
     color: #fff;
-    padding-top: 40px;
+    text-align: center;
+    padding-top: 120px;
 }
