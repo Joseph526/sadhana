@@ -2,15 +2,18 @@
     {{> navbar}}
     <div class="vertical">
         <div class="row">
-            <div class="col-lg-4"></div>
-            <div class="col-lg-4">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6">
                 <form>
                     <div class="form-group">
                         <h2>Welcome Back!</h2>
                         <label for="username">Username</label>
-                        <input type="text" id="username" name="username">
+                        <input type="text" id="username" name="username" placeholder="Username">
                         <label for="password">Password</label>
-                        <input type="text" id="password" name="password">
+                        <input type="password" id="password" name="password" placeholder="Password">
+                        <label>
+                            <input type="checkbox" value="remember-me">Remember me
+                        </label>
                         <p id="forgot-pw">Forgot Password?</p>
                         {{!-- Use this button for actual form submission and validation --}}
 
@@ -28,7 +31,7 @@
                     </div>
                 </form>
             </div>
-            <div class="col-lg-4"></div>
+            <div class="col-lg-3"></div>
         </div>
     </div>
 
