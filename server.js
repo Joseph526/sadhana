@@ -26,7 +26,6 @@ app.use(passport.session()); // persistent login sessions
 // For Handlebars
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
-app.set("views", "/views");
 
 // Routes
 var routes = require("./routes/post-route.js")(app, passport);

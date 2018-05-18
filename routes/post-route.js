@@ -7,7 +7,7 @@ var router = express.Router();
 // Routes
 // =============================================================
 
-module.exports = function(app, passport) {
+module.exports = function(router, passport) {
     // Landing Page
     router.get("/", function(req, res) {
         res.render("index");
