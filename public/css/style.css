@@ -342,3 +342,21 @@ input[type=search]:focus {
 .main h2 {
     text-align: center;
 }
+
+/* Sadha Squares */
+
+#sadha-squares {
+    text-align: center;
+}
+
+.habit {
+    display: inline-block;
+}
+
+.square {
+    height: 15px;
+    width: 15px;
+    background-color: #999999;
+    margin-right: 5px;
+    display: inline-block;
+}

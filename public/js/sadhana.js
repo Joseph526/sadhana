@@ -38,5 +38,24 @@ $(document).ready(function () {
                 }
             }
         });
+    
+    var habits = ["coding", "running", "reading", "machine learning"];
+    var daysInMay = 31;
+
+    // Generate a sadha-square
+    function makeSadha() {
+        for (var i = 0; i < habits.length; i++) {
+            var goal = $("<div>");
+            goal.attr("id", habits[i]);
+            $("#sadha-squares").append(goal);
+            for (var j = 0; j < daysInMay; j++) {
+                var sadhaSquare = $("<div>");
+                sadhaSquare.addClass("square");
+                $("#sadha-squares").append(sadhaSquare);
+            }
+        }
+    }
+
+    makeSadha();
 
 });
