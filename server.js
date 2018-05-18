@@ -1,10 +1,10 @@
 // Dependencies
 // =============================================================
 var express = require("express");
-var passport = require('passport');
-var session = require('express-session');
+var passport = require("passport");
+var session = require("express-session");
 var bodyParser = require("body-parser");
-var env = require('dotenv').load();
+var env = require("dotenv").load();
 var exphbs = require("express-handlebars");
 
 var app = express();
@@ -30,7 +30,7 @@ app.set("view engine", "handlebars");
 // Routes
 var routes = require("./routes/post-route.js")(app, passport);
 
-app.use(routes);
+// app.use(routes);
 
 // load passport strategies
 require("./config/passport/passport.js")(passport, db.user);

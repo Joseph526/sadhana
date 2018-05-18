@@ -7,24 +7,55 @@ var router = express.Router();
 // Routes
 // =============================================================
 
-// Landing Page
-router.get("/", function(req, res) {
-    res.render("index");
-});
+module.exports = function(router, passport) {
+    // Landing Page
+    router.get("/", function(req, res) {
+        res.render("index");
+    });
 
-// Log In
-router.get("/log_in", function(req, res) {
-    res.render("login");
-});
+    // Log In
+    router.get("/log_in", function(req, res) {
+        res.render("login");
+    });
 
-// Dashboard
-router.get("/dashboard", function(req, res) {
-    res.render("dashboard", {layout: 'user'});
-});
+    // Dashboard
+    router.get("/dashboard", isLoggedIn, function(req, res) {
+        res.render("dashboard", { layout: 'user' });
+    });
 
-// Pomodoro Timer
-router.get("/pomodoro", function(req, res){
-    res.render("pomodoro", {layout: 'user'});
-});
+    // Log Out
+    router.get("/log_out", function(req, res) {
+        req.session.destroy(function(err) {
+            res.redirect("/");
+        });
+    });
 
-module.exports = router;
+    // Post route for signup
+    router.post("/signup", passport.authenticate("local-signup", {
+        successRedirect: "/dashboard",
+        failureRedirect: "/"
+    }));
+
+    // Post route for login
+    router.post("/log_in", passport.authenticate("local-signin", {
+        successRedirect: "/dashboard",
+        failureRedirect: "/log_in"
+    }));
+
+    // Function to verify the user is logged in
+    function isLoggedIn(req, res, next) {
+        if (req.isAuthenticated()) {
+            return next();
+        }
+        else {
+            res.redirect("/log_in");
+        }
+    };
+
+    // Pomodoro Timer
+    router.get("/pomodoro", function(req, res){
+      res.render("pomodoro", {layout: 'user'});
+    });
+
+
+};
