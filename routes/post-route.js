@@ -23,5 +23,8 @@ router.get("/dashboard", function(req, res) {
 });
 
 // Pomodoro Timer
+router.get("/pomodoro", function(req, res){
+    res.render("pomodoro", {layout: 'user'});
+});
 
 module.exports = router;

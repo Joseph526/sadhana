@@ -1,0 +1,185 @@
+<div class="dashboard">
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-lg-1 sidebar">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <img src="/img/lotus.svg" id="lotus-logo" alt="Lotus by Callum Taylor from the Noun Project" /> sadhana
+                    </li>
+                    <li class="nav-item">
+                        {{!--
+                        <a class="nav-link" href="#">Habit</a> --}}
+                        <div class="icon">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        {{!--
+                        <a class="nav-link" href="#">Habit</a> --}}
+                        <div class="icon">
+                            <i class="far fa-clock"></i>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <main class="col-lg-11 feed">
+                <nav class="navbar navbar-expand-lg user-navbar">
+                    <form>
+                        <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                    </form>
+                    <ul class="navbar-nav ml-auto">
+                        {{!--
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Weather Widget</a>
+                        </li> --}}
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Hello, Tegan
+                                <div class="icon">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="main">
+                    <h2>You found the pomodoro timer page</h2>
+
+                    <input id="25start" type="button" value="25 minutes" />
+                    <input id="10start" type="button" value="10 minutes" />
+                    <input id="5start" type="button" value="5 minutes" />
+
+                    <div id="timer">
+                        <input id="minutes" type="text" style="width: 24px; border: none; background-color:none; font-size: 14px;"> minutes and
+                        <input id="seconds" type="text" style="width: 24px; border: none; background-color:none; font-size: 14px"> seconds.
+                    </div>
+                </div>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+                <script>
+                    // set minutes
+                    var mins;
+                    var secs;
+                    {/* // calculate the seconds (don't change this! unless time progresses at a different speed for you...) */ }
+                    function countdown25() {
+                        mins = 25;
+                        secs = mins * 60;
+
+                        console.log('countdown initiated.');
+                        setTimeout('Decrement()', 1000);
+                    }
+                    function Decrement() {
+                        if (document.getElementById) {
+                            minutes = document.getElementById("minutes");
+                            seconds = document.getElementById("seconds");
+                            // if less than a minute remaining
+                            if (seconds < 59) {
+                                seconds.value = secs;
+                            } else {
+                                minutes.value = getminutes();
+                                seconds.value = getseconds();
+                            }
+                            secs--;
+                            setTimeout('Decrement()', 1000);
+                        }
+                    }
+                    function getminutes() {
+                        // minutes is seconds divided by 60, rounded down
+                        mins = Math.floor(secs / 60);
+                        return mins;
+                    }
+                    function getseconds() {
+                        // take mins remaining (as seconds) away from total seconds remaining
+                        return secs - Math.round(mins * 60);
+                    }
+               
+                    $('#25start').click(countdown25);
+               
+                    // set minutes
+
+                    {/* // calculate the seconds (don't change this! unless time progresses at a different speed for you...) */ }
+                    function countdown10() {
+                        mins = 10;
+                        secs = mins * 60;
+
+                        console.log('countdown initiated.');
+                        setTimeout('Decrement()', 1000);
+                    }
+                    function Decrement() {
+                        if (document.getElementById) {
+                            minutes = document.getElementById("minutes");
+                            seconds = document.getElementById("seconds");
+                            // if less than a minute remaining
+                            if (seconds < 59) {
+                                seconds.value = secs;
+                            } else {
+                                minutes.value = getminutes();
+                                seconds.value = getseconds();
+                            }
+                            secs--;
+                            setTimeout('Decrement()', 1000);
+                        }
+                    }
+                    function getminutes() {
+                        // minutes is seconds divided by 60, rounded down
+                        mins = Math.floor(secs / 60);
+                        return mins;
+                    }
+                    function getseconds() {
+                        // take mins remaining (as seconds) away from total seconds remaining
+                        return secs - Math.round(mins * 60);
+                    }
+               
+                    $('#10start').click(countdown10);
+            
+                    // set minutes
+
+                    {/* // calculate the seconds (don't change this! unless time progresses at a different speed for you...) */ }
+                    function countdown5() {
+                        mins = 5;
+                        secs = mins * 60;
+
+                        console.log('countdown initiated.');
+                        setTimeout('Decrement()', 1000);
+                    }
+                    function Decrement() {
+                        if (document.getElementById) {
+                            minutes = document.getElementById("minutes");
+                            seconds = document.getElementById("seconds");
+                            // if less than a minute remaining
+                            if (seconds < 59) {
+                                seconds.value = secs;
+                            } else {
+                                minutes.value = getminutes();
+                                seconds.value = getseconds();
+                            }
+                            secs--;
+                            setTimeout('Decrement()', 1000);
+                        }
+                    }
+                    function getminutes() {
+                        // minutes is seconds divided by 60, rounded down
+                        mins = Math.floor(secs / 60);
+                        return mins;
+                    }
+                    function getseconds() {
+                        // take mins remaining (as seconds) away from total seconds remaining
+                        return secs - Math.round(mins * 60);
+                    }
+               
+                    $('#5start').click(countdown5);
+                </script>
+
+
+                </head>
+
+                <body>
+
+        </div>
+
+        </main>
+    </div>
+</div>
+
+</div>
+
+{{> footer}}
