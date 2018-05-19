@@ -48,7 +48,6 @@ module.exports = function(passport, user) {
                     {
                         email: email,
                         password: userPassword,
-                        username: req.body.username,
                         firstname: req.body.firstname,
                         lastname: req.body.lastname
                     };
