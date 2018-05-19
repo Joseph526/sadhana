@@ -24,4 +24,9 @@ router.get("/dashboard", function(req, res) {
 
 // Pomodoro Timer
 
+// Dashboard
+router.get("/goal", function(req, res) {
+    res.render("goal", {layout: 'user'});
+});
+
 module.exports = router;

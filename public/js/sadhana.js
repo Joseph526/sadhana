@@ -2,6 +2,15 @@ $(document).ready(function () {
 
     console.log("I'm connected");
 
+    // Moment.js Dates
+    var today = moment().format('dddd, MMMM Do YYYY');
+    var month = moment().format('MMMM');
+    var monthAndYear = moment().format('MMMM YYYY');
+
+    $("#today").append(today);
+    $("#this-month").append(month);
+    $("#this-month-and-year").append(monthAndYear);
+
     // Select all links with hashes
     $('a[href*="#"]')
         // Remove links that don't actually link to anything
