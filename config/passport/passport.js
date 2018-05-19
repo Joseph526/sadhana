@@ -21,6 +21,7 @@ module.exports = function(passport, user) {
         });
     });
 
+    // LOCAL SIGNUP
     passport.use("local-signup", new LocalStrategy({
         usernameField: "email",
         passwordField: "password",
@@ -47,6 +48,7 @@ module.exports = function(passport, user) {
                     {
                         email: email,
                         password: userPassword,
+                        username: req.body.username,
                         firstname: req.body.firstname,
                         lastname: req.body.lastname
                     };
