@@ -39,4 +39,24 @@ $(document).ready(function () {
             }
         });
 
+    // Button jQuery for AJAX POST request, cannot use with res.redirect
+    // $("#sign-up").on("click", function(event) {
+    //     event.preventDefault();
+    //     // Capture user input
+    //     var newUser = {
+    //         firstname: $("#firstname").val().trim(),
+    //         lastname: $("#lastname").val().trim(),
+    //         username: $("#username").val().trim(),
+    //         email: $("#email").val().trim(),
+    //         password: $("#password").val().trim()
+    //     };
+    //     // Send the POST request
+    //     $.post("/signup", newUser).then(function(data) {
+    //         console.log("POST request successful\n" + data);
+    //         // Corresponds to AJAX redirect in post-route.js
+    //         if (data.status === "success") {
+    //             window.location.replace(data.redirect);
+    //         }
+    //     });
+    // });
 });
