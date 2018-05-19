@@ -53,7 +53,7 @@ module.exports = function(router, passport) {
     };
 
     // Pomodoro Timer
-    router.get("/pomodoro", function(req, res){
+    router.get("/dashboard/pomodoro", isLoggedIn, function(req, res){
       res.render("pomodoro", {layout: 'user'});
     });
 
