@@ -13,19 +13,24 @@
                 </h2>
             </div>
             <div class="offset-lg-1 col-lg-5">
-                <form>
+                <form id="signup" name="signup" method="POST" action="/signup">
                     <div class="form-group">
                         <h2>Sign Up For Free</h2>
-                        <label for="username">Username</label>
-                        <input type="text" id="username" name="username" placeholder="Username">
+                        <label for="firstname">First Name</label>
+                        <input type="text" id="firstname" name="firstname" placeholder="Firstname">
+                        <label for="lastname">Last Name</label>
+                        <input type="text" id="lastname" name="lastname" placeholder="Lastname">
                         <label for="email">Email</label>
                         <input type="email" id="email" name="email" placeholder="Email Address">
                         <label for="password">Create a Password</label>
                         <input type="password" id="password" name="password" placeholder="Password">
-                        <button type="submit" id="log-in">
+                        {{!-- Button associated with AJAX POST method --}}
+                        {{!-- <button type="submit" id="sign-up">
                             <i class="fas fa-arrow-right"></i>
 
-                        </button>
+                        </button> --}}
+                        {{!-- Button for HTTP POST method --}}
+                        <input class="btn" type="submit" id="sign-up" value="Sign Up" />
                     </div>
                 </form>
             </div>

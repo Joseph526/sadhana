@@ -4,11 +4,11 @@
         <div class="row">
             <div class="col-lg-3"></div>
             <div class="col-lg-6">
-                <form>
+                <form id="login" name="login" method="POST" action="/log_in">
                     <div class="form-group">
                         <h2>Welcome Back!</h2>
-                        <label for="username">Username</label>
-                        <input type="text" id="username" name="username" placeholder="Username">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Email Address">
                         <label for="password">Password</label>
                         <input type="password" id="password" name="password" placeholder="Password">
                         <label>
@@ -22,12 +22,14 @@
                         </button> --}}
 
                         {{!-- This a temporary prototype link --}}
-                        <a href="/dashboard">
+                        {{!-- <a href="/dashboard">
                             <div class="icon" id="log-in">
                                 <i class="fas fa-arrow-right"></i>
                             </div>
-                        </a>
-                        <p id="new-user">Don't have an account? Sign Up</p>
+                        </a> --}}
+                        {{!-- Button for HTTP POST method --}}
+                        <input class="btn" type="submit" id="log-in" value="&gt;" />
+                        <p id="new-user">Don't have an account? <a href="/">Sign Up</a></p>
                     </div>
                 </form>
             </div>
