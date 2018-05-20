@@ -56,6 +56,12 @@ module.exports = function(router, passport) {
     router.get("/dashboard/pomodoro", isLoggedIn, function(req, res){
       res.render("pomodoro", {layout: 'user'});
     });
+  
+    // Add goal page
+    router.get("/dashboard/goal", isLoggedIn, function(req, res) {
+      res.render("goal", {layout: 'user'});
+    });
+
 
 
 };
