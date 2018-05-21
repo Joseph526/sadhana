@@ -28,8 +28,9 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 // Routes
-require("./routes/post-route.js")(app, passport);
-require("./routes/task-route.js")(app);
+require("./routes/post-route.js")(app, passport, db.user);
+require("./routes/task-route.js")(app, db.Task);
+
 
 // app.use(routes);
 

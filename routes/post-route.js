@@ -7,7 +7,7 @@ var router = express.Router();
 // Routes
 // =============================================================
 
-module.exports = function(router, passport) {
+module.exports = function(router, passport, User) {
     // Landing Page
     router.get("/", function(req, res) {
         res.render("index");
@@ -62,6 +62,14 @@ module.exports = function(router, passport) {
     //   res.render("goal", {layout: 'user'});
     // });
 
-
-
+    // Query DB for user info by email
+    router.get("/api/:users", function(req, res) {
+        User.findOne({
+            where: {
+                email: req.params.users
+            }
+        }).then(function(result) {
+            res.json(result);
+        });
+    });
 };

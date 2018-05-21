@@ -48,6 +48,49 @@ $(document).ready(function () {
             }
         });
 
+    // Button jQuery for user info save into sessionStorage
+    $("#sign-up").on("click", function(event) {
+        // Capture user input
+        var newUser = {
+            firstname: $("#firstname").val().trim(),
+            lastname: $("#lastname").val().trim(),
+            email: $("#email").val().trim(),
+        };
+        // Clear sessionStorage
+        sessionStorage.clear();
+        // Store all content into sessionStorage
+        sessionStorage.setItem("firstname", newUser.firstname);
+        sessionStorage.setItem("lastname", newUser.lastname);
+        sessionStorage.setItem("email", newUser.email);
+      
+    //     // Send the POST request
+    //     $.post("/signup", newUser).then(function(data) {
+    //         console.log("POST request successful\n" + data);
+    //         // Corresponds to AJAX redirect in post-route.js
+    //         if (data.status === "success") {
+    //             window.location.replace(data.redirect);
+    //         }
+    //     });
+    });
+
+    $("#log-in").on("click", function(event) {
+        // Capture user input
+        var existingUser = {
+            email: $("#email").val().trim()
+        };
+        // Query DB
+        $.get("/api/" + existingUser.email, function(data) {
+            // Clear sessionStorage
+            sessionStorage.clear();
+            // Store all content into sessionStorage
+            sessionStorage.setItem("firstname", data.firstname);
+            sessionStorage.setItem("lastname", newUser.lastname);
+            sessionStorage.setItem("email", newUser.email);
+        });
+    });
+
+    $("#userName").text(sessionStorage.getItem("firstname"));
+
     var habits = ["coding", "running", "reading", "machine-learning"];
     var daysInMay = 31;
 
@@ -69,60 +112,67 @@ $(document).ready(function () {
 
     makeSadha();
 
-    $(document).on("submit", "#add-task", handleTaskFormSubmit);
+    // TASKS
+
+    var taskContainer = $(".task-container");
+    var tasks;
 
     var taskInput = $("#task-input");
 
-    getTasks();
+    function getTasks() {
+        $.get("/api/tasks/todo", function(data) {
+            console.log("Tasks", data);
+            tasks = data;
+            initializeRows();
+        })
+    }
 
-    function handleTaskFormSubmit(event) {
+    function initializeRows() {
+        taskContainer.empty();
+        var tasksToAdd = [];
+        for (var i = 0; i < tasks.length; i++) {
+            tasksToAdd.push(createNewRow(tasks[i]));
+        }
+        taskContainer.append(tasksToAdd)
+    }
+
+    function createNewRow(task) {
+        var newTaskCard = $("<div>");
+        var deleteBtn = $("<button>");
+        deleteBtn.text("x");
+        deleteBtn.addClass("delete btn btn-danger");
+        var deferBtn = $("<button>");
+        deferBtn.text(">");
+        deferBtn.addClass("btn btn-primary");
+        var newTaskName = $("<h5>");
+        newTaskName.text(task.task);
+        newTaskCard.append(deleteBtn);
+        newTaskCard.append(deferBtn);
+        newTaskCard.append(newTaskName);
+        return newTaskCard;
+    }
+
+    $(document).on("submit", "#add-task", newTask)
+
+    function newTask(event) {
         event.preventDefault();
-        // Don't do anything if the name fields hasn't been filled out
-        if (!taskInput.val().trim().trim()) {
+        if (!taskInput.val().trim()) {
             return;
         }
-        // Calling the upsertTask function and passing in the value of the name input
-        upsertTask({
+
+        prependTask({
             task: taskInput
                 .val()
                 .trim()
         });
+
+        taskInput.val('');
+    };
+
+    function prependTask(taskData) {
+        $.post("/api/tasks/todo", taskData)
+            .then(getTasks);
     }
+    getTasks();
 
-    function upsertTask(taskData) {
-        $.post("/api/tasks", taskData)
-            // .then(getTasks);
-    }
-
-    // function getTasks() {
-    //     $.get("/api/tasks", function(data) {
-        //   var rowsToAdd = [];
-        //   for (var i = 0; i < data.length; i++) {
-        //     rowsToAdd.push(createTaskRow(data[i]));
-        //   }
-        //   renderTaskList(rowsToAdd);
-        //   nameInput.val("");
-        // });
-    //   }
-
-    // Button jQuery for AJAX POST request, cannot use with res.redirect
-    // $("#sign-up").on("click", function(event) {
-    //     event.preventDefault();
-    //     // Capture user input
-    //     var newUser = {
-    //         firstname: $("#firstname").val().trim(),
-    //         lastname: $("#lastname").val().trim(),
-    //         username: $("#username").val().trim(),
-    //         email: $("#email").val().trim(),
-    //         password: $("#password").val().trim()
-    //     };
-    //     // Send the POST request
-    //     $.post("/signup", newUser).then(function(data) {
-    //         console.log("POST request successful\n" + data);
-    //         // Corresponds to AJAX redirect in post-route.js
-    //         if (data.status === "success") {
-    //             window.location.replace(data.redirect);
-    //         }
-    //     });
-    // });
 });
