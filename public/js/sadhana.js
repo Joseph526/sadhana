@@ -91,7 +91,7 @@ $(document).ready(function () {
 
     $("#userName").text(sessionStorage.getItem("firstname"));
 
-    var habits = ["coding", "running", "reading", "machinelearning"];
+    var habits = ["coding", "running", "reading", "machine-learning"];
     var daysInMay = 31;
 
     // Generate a sadha-square
@@ -108,10 +108,48 @@ $(document).ready(function () {
                 $("#" + habits[i]).append(sadhaSquare);
             }
         }
-    }
+    };
 
     makeSadha();
 
+    // TASKS
 
+    var taskContainer = $(".task-container");
+    var tasks;
+
+    function getTasks() {
+        $.get("/api/tasks", function(data) {
+            console.log("Tasks", data);
+            tasks = data;
+            initializeRows();
+        })
+    }
+
+    function initializeRows() {
+        taskContainer.empty();
+        var tasksToAdd = [];
+        for (var i = 0; i < tasks.length; i++) {
+            tasksToAdd.push(createNewRow(tasks[i]));
+        }
+        taskContainer.append(tasksToAdd)
+    }
+
+    function createNewRow(task) {
+        var newTaskCard = $("<div>");
+        var deleteBtn = $("<button>");
+        deleteBtn.text("x");
+        deleteBtn.addClass("delete btn btn-danger");
+        var deferBtn = $("<button>");
+        deferBtn.text(">");
+        deferBtn.addClass("btn btn-primary");
+        var newTaskName = $("<h5>");
+        newTaskName.text(task.task);
+        newTaskCard.append(deleteBtn);
+        newTaskCard.append(deferBtn);
+        newTaskCard.append(newTaskName);
+        return newTaskCard;
+    }
+
+    getTasks();
 
 });
