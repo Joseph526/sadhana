@@ -28,7 +28,7 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 // Routes
-var routes = require("./routes/post-route.js")(app, passport);
+var routes = require("./routes/post-route.js")(app, passport, db.user);
 
 // app.use(routes);
 
