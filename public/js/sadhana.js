@@ -39,17 +39,21 @@ $(document).ready(function () {
             }
         });
 
-    // Button jQuery for AJAX POST request, cannot use with res.redirect
-    // $("#sign-up").on("click", function(event) {
-    //     event.preventDefault();
-    //     // Capture user input
-    //     var newUser = {
-    //         firstname: $("#firstname").val().trim(),
-    //         lastname: $("#lastname").val().trim(),
-    //         username: $("#username").val().trim(),
-    //         email: $("#email").val().trim(),
-    //         password: $("#password").val().trim()
-    //     };
+    // Button jQuery for user info save into sessionStorage
+    $("#sign-up").on("click", function(event) {
+        // Capture user input
+        var newUser = {
+            firstname: $("#firstname").val().trim(),
+            lastname: $("#lastname").val().trim(),
+            email: $("#email").val().trim(),
+        };
+        // Clear sessionStorage
+        sessionStorage.clear();
+        // Store all content into sessionStorage
+        sessionStorage.setItem("firstname", newUser.firstname);
+        sessionStorage.setItem("lastname", newUser.lastname);
+        sessionStorage.setItem("email", newUser.email);
+
     //     // Send the POST request
     //     $.post("/signup", newUser).then(function(data) {
     //         console.log("POST request successful\n" + data);
@@ -58,5 +62,23 @@ $(document).ready(function () {
     //             window.location.replace(data.redirect);
     //         }
     //     });
-    // });
+    });
+
+    $("#log-in").on("click", function(event) {
+        // Capture user input
+        var existingUser = {
+            email: $("#email").val().trim()
+        };
+        // Query DB
+        $.get("/api/" + existingUser.email, function(data) {
+            // Clear sessionStorage
+            sessionStorage.clear();
+            // Store all content into sessionStorage
+            sessionStorage.setItem("firstname", data.firstname);
+            sessionStorage.setItem("lastname", newUser.lastname);
+            sessionStorage.setItem("email", newUser.email);
+        });
+    });
+
+    $("#userName").text(sessionStorage.getItem("firstname"));
 });
