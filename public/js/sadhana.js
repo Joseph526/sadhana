@@ -59,18 +59,10 @@ $(document).ready(function () {
         // Clear sessionStorage
         sessionStorage.clear();
         // Store all content into sessionStorage
-        sessionStorage.setItem("firstname", newUser.firstname);
-        sessionStorage.setItem("lastname", newUser.lastname);
+        // sessionStorage.setItem("firstname", newUser.firstname);
+        // sessionStorage.setItem("lastname", newUser.lastname);
         sessionStorage.setItem("email", newUser.email);
       
-    //     // Send the POST request
-    //     $.post("/signup", newUser).then(function(data) {
-    //         console.log("POST request successful\n" + data);
-    //         // Corresponds to AJAX redirect in post-route.js
-    //         if (data.status === "success") {
-    //             window.location.replace(data.redirect);
-    //         }
-    //     });
     });
 
     $("#log-in").on("click", function(event) {
@@ -78,18 +70,13 @@ $(document).ready(function () {
         var existingUser = {
             email: $("#email").val().trim()
         };
-        // Query DB
-        $.get("/api/" + existingUser.email, function(data) {
-            // Clear sessionStorage
-            sessionStorage.clear();
-            // Store all content into sessionStorage
-            sessionStorage.setItem("firstname", data.firstname);
-            sessionStorage.setItem("lastname", newUser.lastname);
-            sessionStorage.setItem("email", newUser.email);
-        });
+        // Clear sessionStorage and save user email
+        sessionStorage.clear();
+        sessionStorage.setItem("email", existingUser.email);
+        
     });
-
-    $("#userName").text(sessionStorage.getItem("firstname"));
+    
+    
 
     var habits = ["coding", "running", "reading", "machine-learning"];
     var daysInMay = 31;
@@ -120,7 +107,7 @@ $(document).ready(function () {
     var taskInput = $("#task-input");
 
     function getTasks() {
-        $.get("/api/tasks/todo", function(data) {
+        $.get("/api/tasks/todo/" + sessionStorage.getItem("id"), function(data) {
             console.log("Tasks", data);
             tasks = data;
             initializeRows();
@@ -163,7 +150,8 @@ $(document).ready(function () {
         prependTask({
             task: taskInput
                 .val()
-                .trim()
+                .trim(),
+            UserId: sessionStorage.getItem("id")
         });
 
         taskInput.val('');

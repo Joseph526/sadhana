@@ -28,14 +28,14 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 // Routes
-require("./routes/post-route.js")(app, passport, db.user);
+require("./routes/post-route.js")(app, passport, db.User);
 require("./routes/task-route.js")(app, db.Task);
 
 
 // app.use(routes);
 
 // load passport strategies
-require("./config/passport/passport.js")(passport, db.user);
+require("./config/passport/passport.js")(passport, db.User);
 
 // Sync sequelize models and start server:
 
