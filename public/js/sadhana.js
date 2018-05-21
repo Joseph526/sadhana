@@ -117,8 +117,10 @@ $(document).ready(function () {
     var taskContainer = $(".task-container");
     var tasks;
 
+    var taskInput = $("#task-input");
+
     function getTasks() {
-        $.get("/api/tasks", function(data) {
+        $.get("/api/tasks/todo", function(data) {
             console.log("Tasks", data);
             tasks = data;
             initializeRows();
@@ -150,6 +152,27 @@ $(document).ready(function () {
         return newTaskCard;
     }
 
+    $(document).on("submit", "#add-task", newTask)
+
+    function newTask(event) {
+        event.preventDefault();
+        if (!taskInput.val().trim()) {
+            return;
+        }
+
+        prependTask({
+            task: taskInput
+                .val()
+                .trim()
+        });
+
+        taskInput.val('');
+    };
+
+    function prependTask(taskData) {
+        $.post("/api/tasks/todo", taskData)
+            .then(getTasks);
+    }
     getTasks();
 
 });
