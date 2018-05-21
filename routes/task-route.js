@@ -1,8 +1,13 @@
 module.exports = function (app, Task) {
 
     // GET route for retrieving all tasks
-    app.get("/api/tasks/todo", function (req, res) {
-        Task.findAll({}).then(function(result) {
+    app.get("/api/tasks/todo/:id", function (req, res) {
+        var user = req.params.id;
+        Task.findAll({
+            where: {
+                UserId: user
+            }
+        }).then(function(result) {
             res.json(result);
         });
     });

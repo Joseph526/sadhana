@@ -63,7 +63,7 @@ module.exports = function(router, passport, User) {
     // });
 
     // Query DB for user info by email
-    router.get("/api/:users", function(req, res) {
+    router.get("/api/user/:users", function(req, res) {
         User.findOne({
             where: {
                 email: req.params.users

@@ -11,5 +11,13 @@ module.exports = function(sequelize, Sequelize) {
         }
     });
 
+    Task.associate = function(models) {
+        Task.belongsTo(models.User, {
+            foreignKey: {
+                allowNull: false
+            }
+        });
+    };
+
     return Task
-}
+};
