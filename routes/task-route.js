@@ -1,10 +1,8 @@
-var db = require("../models");
-
-module.exports = function (app) {
+module.exports = function (app, Task) {
 
     // GET all tasks
-    app.get("/api/tasks", function (req, res) {
-        db.Task.findAll({}).then(function(result) {
+    app.get("/api/tasks/todo", function (req, res) {
+        Task.findAll({}).then(function(result) {
             res.json(result);
         })
     })

@@ -118,7 +118,7 @@ $(document).ready(function () {
     var tasks;
 
     function getTasks() {
-        $.get("/api/tasks", function(data) {
+        $.get("/api/tasks/todo", function(data) {
             console.log("Tasks", data);
             tasks = data;
             initializeRows();
