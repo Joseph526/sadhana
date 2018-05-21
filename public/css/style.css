@@ -334,11 +334,36 @@ input[type=search]:focus {
 
 .main {
     background-color: rgba(255, 255, 255, .95);
-    height: 30vh;
     border-radius: 5px;
     padding: 20px;
+    margin-bottom: 15px;
 }
 
-.main h2 {
+.main h2, h4 {
     text-align: center;
+}
+
+/* Sadha Squares */
+
+#sadha-squares {
+    text-align: center;
+}
+
+.habit {
+    display: block;
+}
+
+.habit p {
+    text-align: left;
+    display: inline-block;
+    width: 150px;
+    margin-bottom: 0;
+}
+
+.square {
+    height: 15px;
+    width: 15px;
+    background-color: #dfdcd3;
+    margin-right: 5px;
+    display: inline-block;
 }
