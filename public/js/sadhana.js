@@ -48,7 +48,7 @@ $(document).ready(function () {
             }
         });
 
-    var habits = ["coding", "running", "reading", "machinelearning"];
+    var habits = ["coding", "running", "reading", "machine-learning"];
     var daysInMay = 31;
 
     // Generate a sadha-square
@@ -65,11 +65,46 @@ $(document).ready(function () {
                 $("#" + habits[i]).append(sadhaSquare);
             }
         }
-    }
+    };
 
     makeSadha();
 
-});
+    $(document).on("submit", "#add-task", handleTaskFormSubmit);
+
+    var taskInput = $("#task-input");
+
+    getTasks();
+
+    function handleTaskFormSubmit(event) {
+        event.preventDefault();
+        // Don't do anything if the name fields hasn't been filled out
+        if (!taskInput.val().trim().trim()) {
+            return;
+        }
+        // Calling the upsertTask function and passing in the value of the name input
+        upsertTask({
+            task: taskInput
+                .val()
+                .trim()
+        });
+    }
+
+    function upsertTask(taskData) {
+        $.post("/api/tasks", taskData)
+            // .then(getTasks);
+    }
+
+    // function getTasks() {
+    //     $.get("/api/tasks", function(data) {
+        //   var rowsToAdd = [];
+        //   for (var i = 0; i < data.length; i++) {
+        //     rowsToAdd.push(createTaskRow(data[i]));
+        //   }
+        //   renderTaskList(rowsToAdd);
+        //   nameInput.val("");
+        // });
+    //   }
+
     // Button jQuery for AJAX POST request, cannot use with res.redirect
     // $("#sign-up").on("click", function(event) {
     //     event.preventDefault();

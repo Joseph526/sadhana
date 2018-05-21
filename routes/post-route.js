@@ -58,9 +58,9 @@ module.exports = function(router, passport) {
     });
   
     // Add goal page
-    router.get("/dashboard/goal", isLoggedIn, function(req, res) {
-      res.render("goal", {layout: 'user'});
-    });
+    // router.get("/dashboard/goal", isLoggedIn, function(req, res) {
+    //   res.render("goal", {layout: 'user'});
+    // });
 
 
 
