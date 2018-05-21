@@ -69,41 +69,45 @@ $(document).ready(function () {
 
     makeSadha();
 
-    $(document).on("submit", "#add-task", handleTaskFormSubmit);
+    // TASKS
 
-    var taskInput = $("#task-input");
+    var taskContainer = $(".task-container");
+    var tasks;
+
+    function getTasks() {
+        $.get("/api/tasks", function(data) {
+            console.log("Tasks", data);
+            tasks = data;
+            initializeRows();
+        })
+    }
+
+    function initializeRows() {
+        taskContainer.empty();
+        var tasksToAdd = [];
+        for (var i = 0; i < tasks.length; i++) {
+            tasksToAdd.push(createNewRow(tasks[i]));
+        }
+        taskContainer.append(tasksToAdd)
+    }
+
+    function createNewRow(task) {
+        var newTaskCard = $("<div>");
+        var deleteBtn = $("<button>");
+        deleteBtn.text("x");
+        deleteBtn.addClass("delete btn btn-danger");
+        var deferBtn = $("<button>");
+        deferBtn.text(">");
+        deferBtn.addClass("btn btn-primary");
+        var newTaskName = $("<h5>");
+        newTaskName.text(task.task);
+        newTaskCard.append(deleteBtn);
+        newTaskCard.append(deferBtn);
+        newTaskCard.append(newTaskName);
+        return newTaskCard;
+    }
 
     getTasks();
-
-    function handleTaskFormSubmit(event) {
-        event.preventDefault();
-        // Don't do anything if the name fields hasn't been filled out
-        if (!taskInput.val().trim().trim()) {
-            return;
-        }
-        // Calling the upsertTask function and passing in the value of the name input
-        upsertTask({
-            task: taskInput
-                .val()
-                .trim()
-        });
-    }
-
-    function upsertTask(taskData) {
-        $.post("/api/tasks", taskData)
-            // .then(getTasks);
-    }
-
-    // function getTasks() {
-    //     $.get("/api/tasks", function(data) {
-        //   var rowsToAdd = [];
-        //   for (var i = 0; i < data.length; i++) {
-        //     rowsToAdd.push(createTaskRow(data[i]));
-        //   }
-        //   renderTaskList(rowsToAdd);
-        //   nameInput.val("");
-        // });
-    //   }
 
     // Button jQuery for AJAX POST request, cannot use with res.redirect
     // $("#sign-up").on("click", function(event) {
