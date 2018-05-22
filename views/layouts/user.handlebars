@@ -25,14 +25,17 @@
 <body>
     <script type="text/javascript">
         // Query DB for user info save into sessionStorage
-        $.get("/api/user/" + sessionStorage.getItem("email"), function(data) {
+        var userEmail = sessionStorage.getItem("email");
+        $.get("/api/user/" + userEmail, function(data) {
             // Store all content into sessionStorage
             sessionStorage.setItem("firstname", data.firstname);
             sessionStorage.setItem("lastname", data.lastname);
             sessionStorage.setItem("id", data.id);
         }).then(function(response) {
             var userName = sessionStorage.getItem("firstname");
+            // Set the document title with user's name
             document.title = userName + "'s sadhana";
+            // Set the navbar with user's name
             $("#userName").text(sessionStorage.getItem("firstname"));
         });
     </script>
