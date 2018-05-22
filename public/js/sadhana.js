@@ -145,7 +145,7 @@ $(document).ready(function () {
             .then(getTasks);
     }
     
-    setTimeout(getTasks, 500);
-    // getTasks();
-
+    // Short timeout to fix async bug on page load
+    setTimeout(getTasks, 100);
+    
 });
