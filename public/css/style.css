@@ -31,7 +31,7 @@ body {
 
 /* Welcome Page */
 .sadhana-welcome {
-    height: 90vh;
+    height: 95vh;
     background-color: rgba(0,0,0,.1);
     display: block;
     position: relative;
@@ -201,7 +201,7 @@ input[type=text]:focus, input[type=password]:focus, input[type=email]:focus {
 }
 
 .profile {
-    max-width: 300px;
+    max-width: 200px;
     border-radius: 50%;
     margin: 20px;
 }
