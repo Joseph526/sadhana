@@ -148,6 +148,7 @@ $(document).ready(function () {
         return newTaskCard;
     }
 
+    // CREATE a new task
     $(document).on("submit", "#add-task", newTask)
 
     function newTask(event) {
