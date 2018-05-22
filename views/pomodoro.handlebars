@@ -45,8 +45,6 @@
                     <h2>You found the pomodoro timer page</h2>
 
                     <input id="25start" type="button" value="25 minutes" />
-                    <input id="10start" type="button" value="10 minutes" />
-                    <input id="5start" type="button" value="5 minutes" />
 
                     <div id="timer">
                         <input id="minutes" type="text" style="width: 24px; border: none; background-color:none; font-size: 14px;"> minutes and
@@ -85,8 +83,6 @@
 
                     function modal() {
 
-                        console.log("modal call");
-
                         // Get the modal
                         var modal = document.getElementById("modal25");
 
@@ -124,7 +120,7 @@
                     //TWENTY FIVE MINUTE COUNTDOWN
 
                     function countdown25() {
-                        mins = 1;
+                        mins = 25;
                         secs = mins * 60;
 
                         console.log('countdown initiated.');
@@ -133,14 +129,20 @@
 
 
                     function Decrement() {
-                        if (seconds < 59) {
+                        if (minutes.value == 0 && seconds.value == 1) {
+                            {{!-- modal(); --}}
+                            return;
+                            console.log("seconds=0");
+                        }
+
+                        else if (seconds.value < 59) {
                             seconds.value = secs;
                             console.log("less than a minute");
-                            modal()
                         }
+
                         else {
                             minutes.value = getminutes();
-                            seconds.value = getseconds();
+                            seconds.value = getseconds();                    
                         }
                         secs--;
                         setTimeout(Decrement, 1000);
@@ -160,21 +162,14 @@
 
                     $('#25start').click(countdown25);
 
-
-
                 </script>
-
-
                 </head>
 
                 <body>
-
         </div>
-
         </main>
     </div>
 </div>
-
 </div>
 
 {{> footer}}
