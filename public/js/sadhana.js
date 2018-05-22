@@ -49,31 +49,14 @@ $(document).ready(function () {
         });
 
     // Button jQuery for user info save into sessionStorage
-    $("#sign-up").on("click", function(event) {
+    $("#sign-up, #log-in").on("click", function(event) {
         // Capture user input
-        var newUser = {
-            firstname: $("#firstname").val().trim(),
-            lastname: $("#lastname").val().trim(),
-            email: $("#email").val().trim(),
-        };
-        // Clear sessionStorage
-        sessionStorage.clear();
-        // Store all content into sessionStorage
-        // sessionStorage.setItem("firstname", newUser.firstname);
-        // sessionStorage.setItem("lastname", newUser.lastname);
-        sessionStorage.setItem("email", newUser.email);
-      
-    });
-
-    $("#log-in").on("click", function(event) {
-        // Capture user input
-        var existingUser = {
+        var saveUser = {
             email: $("#email").val().trim()
         };
         // Clear sessionStorage and save user email
         sessionStorage.clear();
-        sessionStorage.setItem("email", existingUser.email);
-        
+        sessionStorage.setItem("email", saveUser.email);
     });
     
     
