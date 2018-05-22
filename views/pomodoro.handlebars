@@ -44,7 +44,7 @@
                 <div class="main">
                     <h2>You found the pomodoro timer page</h2>
 
-                    <input id="25start" type="button" value="25 minutes" />
+                    <input id="25start" type="button" value="Click here to begin your 25 minutes of work!" />
 
                     <div id="timer">
                         <input id="minutes" type="text" style="width: 24px; border: none; background-color:none; font-size: 14px;"> minutes and
@@ -55,7 +55,7 @@
 
 
                 <!-- Trigger/Open The Modal -->
-                <button id="myBtn">Open Modal</button>
+                {{!-- <button id="myBtn">Open Modal</button> --}}
 
                 <!-- The Modal -->
                 <div id="modal25" class="modal">
@@ -87,7 +87,7 @@
                         var modal = document.getElementById("modal25");
 
                         // Get the button that opens the modal
-                        var btn = document.getElementById("myBtn");
+                        {{!-- var btn = document.getElementById("myBtn"); --}}
 
                         // Get the <span> element that closes the modal
                         var span = document.getElementsByClassName("close");
@@ -129,21 +129,18 @@
 
 
                     function Decrement() {
-                        if (minutes.value == 0 && seconds.value == 1) {
-                            {{!-- modal(); --}}
+                        if (minutes.value == 0 && seconds.value == 1) 
+                        {
+                            modal();
                             return;
                             console.log("seconds=0");
-                        }
-
-                        else if (seconds.value < 59) {
-                            seconds.value = secs;
-                            console.log("less than a minute");
                         }
 
                         else {
                             minutes.value = getminutes();
                             seconds.value = getseconds();                    
                         }
+
                         secs--;
                         setTimeout(Decrement, 1000);
                     }
