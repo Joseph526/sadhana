@@ -6,6 +6,7 @@ var session = require("express-session");
 var bodyParser = require("body-parser");
 var env = require("dotenv").load();
 var exphbs = require("express-handlebars");
+var cookieParser = require("cookie-parser");
 
 var app = express();
 var PORT = process.env.PORT || 3000;
@@ -18,10 +19,13 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.use(cookieParser());
+
 // For Passport
 app.use(session({ secret: 'keyboard cat',resave: true, saveUninitialized:true})); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
+app.use(passport.authenticate("remember-me"));
 
 // For Handlebars
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
