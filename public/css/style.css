@@ -282,7 +282,7 @@ input[type=text]:focus, input[type=password]:focus, input[type=email]:focus {
     display: inline-block;
 }
 
-.user-navbar a {
+a {
     color: #fff;
 }
 
@@ -322,6 +322,10 @@ input[type=search]:focus {
 
 .sidebar .nav-item {
     margin-bottom: 20px;
+}
+
+.dropdown-item {
+    color: #333;
 }
 
 #lotus-logo {
