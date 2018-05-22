@@ -144,6 +144,8 @@ $(document).ready(function () {
         $.post("/api/tasks/todo", taskData)
             .then(getTasks);
     }
-    getTasks();
-
+    
+    // Short timeout to fix async bug on page load
+    setTimeout(getTasks, 100);
+    
 });
