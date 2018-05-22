@@ -85,10 +85,12 @@ $(document).ready(function () {
     // TASKS
 
     var taskContainer = $(".task-container");
+    var completedTaskContainer = $(".completed-task-container");
     var tasks;
 
     var taskInput = $("#task-input");
 
+    // Get Today's tasks!
     function getTasks() {
         $.get("/api/tasks/todo/" + sessionStorage.getItem("id"), function (data) {
             console.log("Tasks", data);
@@ -101,9 +103,32 @@ $(document).ready(function () {
         taskContainer.empty();
         var tasksToAdd = [];
         for (var i = 0; i < tasks.length; i++) {
-            tasksToAdd.push(createNewRow(tasks[i]));
+            // TODO: make sure due = today
+            if (!tasks[i].complete) {
+                tasksToAdd.push(createNewRow(tasks[i]));
+            }
         }
         taskContainer.append(tasksToAdd)
+    }
+
+    // Get Today's completed tasks!
+    function getCompletedTasks() {
+        $.get("/api/tasks/todo/" + sessionStorage.getItem("id"), function (data) {
+            console.log("Tasks", data);
+            tasks = data;
+            initializeCompletedRows();
+        })
+    }
+
+    function initializeCompletedRows() {
+        completedTaskContainer.empty();
+        var tasksToAdd = [];
+        for (var i = 0; i < tasks.length; i++) {
+            if (tasks[i].complete) {
+                tasksToAdd.push(createNewRow(tasks[i]));
+            }
+        }
+        completedTaskContainer.append(tasksToAdd)
     }
 
     function createNewRow(task) {
@@ -166,6 +191,7 @@ $(document).ready(function () {
         }).then(function () {
             console.log("You completed this task!");
             getTasks();
+            getCompletedTasks();
         })
     }
 
@@ -173,8 +199,6 @@ $(document).ready(function () {
     $(document).on("click", "button.defer", handleTaskDefer);
 
     function handleTaskDefer() {
-        // var tomorrow = moment().add(1, 'day').format();
-        // console.log(tomorrow);
 
         var currentTask = $(this)
             .parent()
@@ -199,5 +223,6 @@ $(document).ready(function () {
 
 
     getTasks();
+    getCompletedTasks();
 
 });
