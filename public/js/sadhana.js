@@ -49,34 +49,17 @@ $(document).ready(function () {
         });
 
     // Button jQuery for user info save into sessionStorage
-    $("#sign-up").on("click", function(event) {
+    $("#sign-up, #log-in").on("click", function (event) {
         // Capture user input
-        var newUser = {
-            firstname: $("#firstname").val().trim(),
-            lastname: $("#lastname").val().trim(),
-            email: $("#email").val().trim(),
-        };
-        // Clear sessionStorage
-        sessionStorage.clear();
-        // Store all content into sessionStorage
-        // sessionStorage.setItem("firstname", newUser.firstname);
-        // sessionStorage.setItem("lastname", newUser.lastname);
-        sessionStorage.setItem("email", newUser.email);
-      
-    });
-
-    $("#log-in").on("click", function(event) {
-        // Capture user input
-        var existingUser = {
+        var saveUser = {
             email: $("#email").val().trim()
         };
         // Clear sessionStorage and save user email
         sessionStorage.clear();
-        sessionStorage.setItem("email", existingUser.email);
-        
+        sessionStorage.setItem("email", saveUser.email);
     });
-    
-    
+
+
 
     var habits = ["coding", "running", "reading", "machine-learning"];
     var daysInMay = 31;
@@ -102,12 +85,14 @@ $(document).ready(function () {
     // TASKS
 
     var taskContainer = $(".task-container");
+    var completedTaskContainer = $(".completed-task-container");
     var tasks;
 
     var taskInput = $("#task-input");
 
+    // Get Today's tasks!
     function getTasks() {
-        $.get("/api/tasks/todo/" + sessionStorage.getItem("id"), function(data) {
+        $.get("/api/tasks/todo/" + sessionStorage.getItem("id"), function (data) {
             console.log("Tasks", data);
             tasks = data;
             initializeRows();
@@ -118,27 +103,52 @@ $(document).ready(function () {
         taskContainer.empty();
         var tasksToAdd = [];
         for (var i = 0; i < tasks.length; i++) {
-            tasksToAdd.push(createNewRow(tasks[i]));
+            // TODO: make sure due = today
+            if (!tasks[i].complete && moment(tasks[i].due).format('l') === moment().format('l')) {
+                tasksToAdd.push(createNewRow(tasks[i]));
+            }
         }
         taskContainer.append(tasksToAdd)
     }
 
+    // Get Today's completed tasks!
+    function getCompletedTasks() {
+        $.get("/api/tasks/todo/" + sessionStorage.getItem("id"), function (data) {
+            console.log("Tasks", data);
+            tasks = data;
+            initializeCompletedRows();
+        })
+    }
+
+    function initializeCompletedRows() {
+        completedTaskContainer.empty();
+        var tasksToAdd = [];
+        for (var i = 0; i < tasks.length; i++) {
+            if (tasks[i].complete) {
+                tasksToAdd.push(createNewRow(tasks[i]));
+            }
+        }
+        completedTaskContainer.append(tasksToAdd)
+    }
+
     function createNewRow(task) {
         var newTaskCard = $("<div>");
-        var deleteBtn = $("<button>");
-        deleteBtn.text("x");
-        deleteBtn.addClass("delete btn btn-danger");
+        var completeBtn = $("<button>");
+        completeBtn.text("x");
+        completeBtn.addClass("complete btn btn-danger");
         var deferBtn = $("<button>");
         deferBtn.text(">");
-        deferBtn.addClass("btn btn-primary");
+        deferBtn.addClass("defer btn btn-primary");
         var newTaskName = $("<h5>");
         newTaskName.text(task.task);
-        newTaskCard.append(deleteBtn);
+        newTaskCard.append(completeBtn);
         newTaskCard.append(deferBtn);
         newTaskCard.append(newTaskName);
+        newTaskCard.data("task", task);
         return newTaskCard;
     }
 
+    // CREATE a new task
     $(document).on("submit", "#add-task", newTask)
 
     function newTask(event) {
@@ -161,6 +171,59 @@ $(document).ready(function () {
         $.post("/api/tasks/todo", taskData)
             .then(getTasks);
     }
+
+    // COMPLETE a task
+    $(document).on("click", "button.complete", handleTaskComplete);
+
+    function handleTaskComplete() {
+        var currentTask = $(this)
+            .parent()
+            .data("task");
+
+        var id = currentTask.id;
+
+        var checkOffTask = {
+            complete: true
+        };
+
+        $.ajax("api/tasks/todo/id/" + id, {
+            type: "PUT",
+            data: checkOffTask
+        }).then(function () {
+            console.log("You completed this task!");
+            getTasks();
+            getCompletedTasks();
+        })
+    }
+
+    // DEFER A TASK
+    $(document).on("click", "button.defer", handleTaskDefer);
+
+    function handleTaskDefer() {
+
+        var currentTask = $(this)
+            .parent()
+            .data("task");
+
+        var id = currentTask.id;
+        var tomorrow = moment().add(1, 'day').format();
+        console.log(tomorrow);
+
+        var deferTaskToTommorow = {
+            due: tomorrow
+        };
+
+        $.ajax("api/tasks/todo/id/" + id, {
+            type: "PUT",
+            data: deferTaskToTommorow
+        }).then(function() {
+            console.log("You put it off to tomorrow");
+            getTasks();
+        })
+    }
+
+
     getTasks();
+    getCompletedTasks();
 
 });
