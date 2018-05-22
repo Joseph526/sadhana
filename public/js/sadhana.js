@@ -104,7 +104,7 @@ $(document).ready(function () {
         var tasksToAdd = [];
         for (var i = 0; i < tasks.length; i++) {
             // TODO: make sure due = today
-            if (!tasks[i].complete) {
+            if (!tasks[i].complete && moment(tasks[i].due).format('l') === moment().format('l')) {
                 tasksToAdd.push(createNewRow(tasks[i]));
             }
         }
