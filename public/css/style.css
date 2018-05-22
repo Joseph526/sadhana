@@ -371,3 +371,7 @@ input[type=search]:focus {
     margin-right: 5px;
     display: inline-block;
 }
+
+.commit-square {
+    background-color: #072892;
+}

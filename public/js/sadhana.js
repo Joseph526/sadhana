@@ -75,6 +75,7 @@ $(document).ready(function () {
             for (var j = 0; j < daysInMay; j++) {
                 var sadhaSquare = $("<div>");
                 sadhaSquare.addClass("square");
+                sadhaSquare.attr("id", habits[i] + "-" + (j+1));
                 $("#" + habits[i]).append(sadhaSquare);
             }
         }
@@ -103,7 +104,6 @@ $(document).ready(function () {
         taskContainer.empty();
         var tasksToAdd = [];
         for (var i = 0; i < tasks.length; i++) {
-            // TODO: make sure due = today
             if (!tasks[i].complete && moment(tasks[i].due).format('l') === moment().format('l')) {
                 tasksToAdd.push(createNewRow(tasks[i]));
             }
@@ -181,6 +181,13 @@ $(document).ready(function () {
             .data("task");
 
         var id = currentTask.id;
+
+        // THIS DOES NOT STAY AFTER REFRESH OR RE-LOG-IN!!!!!!!!!!!!
+        // I think the solution involves creating a Habits table and pushing to a new array and looping through it
+        // But I don't want to work on that right now :-/
+        if (habits.includes(currentTask.task)) {
+            $("#" + currentTask.task + "-" + moment().format('D')).addClass("commit-square");
+        }
 
         var checkOffTask = {
             complete: true
