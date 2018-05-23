@@ -61,27 +61,28 @@ $(document).ready(function () {
 
 
 
-    var habits = ["coding", "running", "reading", "machine-learning"];
-    var daysInMay = 31;
+    // var habits = ["coding", "running", "reading", "machine-learning"];
+    // var goalArray = [];
+    // var daysInMay = 31;
 
-    // Generate a sadha-square
-    function makeSadha() {
-        for (var i = 0; i < habits.length; i++) {
-            var goal = $("<div>");
-            goal.attr("id", habits[i]);
-            goal.addClass("habit");
-            goal.append("<p>" + habits[i]);
-            $("#sadha-squares").append(goal);
-            for (var j = 0; j < daysInMay; j++) {
-                var sadhaSquare = $("<div>");
-                sadhaSquare.addClass("square");
-                sadhaSquare.attr("id", habits[i] + "-" + (j + 1));
-                $("#" + habits[i]).append(sadhaSquare);
-            }
-        }
-    };
+    // // Generate a sadha-square
+    // function makeSadha() {
+    //     for (var i = 0; i < goalArray.length; i++) {
+    //         var goal = $("<div>");
+    //         goal.attr("id", goalArray[i]);
+    //         goal.addClass("habit");
+    //         goal.append("<p>" + goalArray[i]);
+    //         $("#sadha-squares").append(goal);
+    //         for (var j = 0; j < daysInMay; j++) {
+    //             var sadhaSquare = $("<div>");
+    //             sadhaSquare.addClass("square");
+    //             sadhaSquare.attr("id", goalArray[i] + "-" + (j + 1));
+    //             $("#" + goalArray[i]).append(sadhaSquare);
+    //         }
+    //     }
+    // };
 
-    makeSadha();
+    // makeSadha();
 
     // TASKS
 
@@ -290,7 +291,7 @@ $(document).ready(function () {
 
     // HABITS
 
-    // CREATE a new task
+    // CREATE a new goal
     $(document).on("submit", "#add-goal", newGoal)
 
     var goalInput = $("#goal-input")
@@ -320,85 +321,122 @@ $(document).ready(function () {
 
     function prependGoal(goalData) {
         $.post("/api/goals/habit", goalData)
-            .then(console.log("success"));
+            // .then(getGoals);
+            // .then(console.log("success!"));
+            .then(getGoals);
+
     }
 
     var goalContainer = $(".goal-container");
     var goals;
 
-    // Get Today's tasks!
-    function getTasks() {
+
+    function getGoals() {
         $.get("/api/goals/habit/" + sessionStorage.getItem("id"), function (data) {
             console.log("Goals", data);
             goals = data;
-            initializeRows();
+            initializeGoalRows();
+            makeGoalMap();
         })
     }
 
-    function initializeRows() {
+    function initializeGoalRows() {
         goalContainer.empty();
         var goalsToAdd = [];
         for (var i = 0; i < goals.length; i++) {
-            // if (!tasks[i].complete && moment(tasks[i].due).format('l') === moment().format('l')) {
-                goalsToAdd.push(createNewRow(goals[i]));
-            // }
+            goalsToAdd.push(createNewGoalRow(goals[i]));
+            // goalsToAdd.push(goals[i].habit);
         }
-        goalContainer.append(goalsToAdd)
+        goalContainer.append(goalsToAdd);
+        console.log(goalsToAdd);
     }
 
-    function createNewRow(goal) {
+    function createNewGoalRow(goal) {
         var newGoalCard = $("<li>");
         var newGoalName = $("<h5>");
         newGoalName.text(goal.habit);
 
         newGoalCard.append(newGoalName);
 
-
         if (goal.monday) {
             var monday = $("<div>");
-            monday.text(goal.monday);
+            monday.text("Monday");
             newGoalCard.append(monday);
         }
 
         if (goal.tuesday) {
             var tuesday = $("<div>");
-            saturday.text(goal.tuesday);
+            tuesday.text("Tuesday");
             newGoalCard.append(tuesday);
         }
 
         if (goal.wednesday) {
             var wednesday = $("<div>");
-            wednesday.text(goal.wednesday);
+            wednesday.text("Wednesday");
             newGoalCard.append(wednesday);
         }
         if (goal.thursday) {
             var thursday = $("<div>");
-            saturday.text(goal.thursday);
+            thursday.text("Thursday");
             newGoalCard.append(thursday);
         }
 
         if (goal.friday) {
             var friday = $("<div>");
-            friday.text(goal.friday);
+            friday.text("Friday");
             newGoalCard.append(friday);
         }
 
-
         if (goal.saturday) {
             var saturday = $("<div>");
-            saturday.text(goal.saturday);
+            saturday.text("Saturday");
             newGoalCard.append(saturday);
         }
 
         if (goal.sunday) {
             var sunday = $("<div>");
-            sunday.text(goal.sunday);
+            sunday.text("Sunday");
             newGoalCard.append(sunday);
         }
 
-        newGoalCard.data("goal", goal);
+        newGoalCard.data("goal", goals);
+
         return newGoalCard;
     }
+
+    getGoals();
+
+    // // var habits = ["coding", "running", "reading", "machine-learning"];
+    var goalArray = [];
+    var daysInMay = 31;
+
+    function makeGoalMap() {
+        // var goalArray = [];
+        for (var i = 0; i < goals.length; i++) {
+            goalArray.push(goals[i].habit);
+        };
+        console.log(goalArray);
+
+        makeSadha();
+    };
+
+    // //  Generate a sadha-square
+    function makeSadha() {
+        console.log(goalArray);
+        for (var i = 0; i < goalArray.length; i++) {
+            var goal = $("<div>");
+            goal.attr("id", goalArray[i]);
+            goal.addClass("habit");
+            goal.append("<p>" + goalArray[i]);
+            $("#sadha-squares").append(goal);
+            for (var j = 0; j < daysInMay; j++) {
+                var sadhaSquare = $("<div>");
+                sadhaSquare.addClass("square");
+                sadhaSquare.attr("id", goalArray[i] + "-" + (j + 1));
+                $("#" + goalArray[i]).append(sadhaSquare);
+            }
+        }
+    };
 
 
 });
