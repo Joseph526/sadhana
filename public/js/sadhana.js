@@ -259,4 +259,8 @@ $(document).ready(function () {
 
     // makeCommitSquares();
 
+    
+    // Short timeout to fix async bug on page load
+    setTimeout(getTasks, 100);
+    
 });
