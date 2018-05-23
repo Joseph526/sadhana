@@ -149,11 +149,14 @@ $(document).ready(function () {
     }
 
     function createCompletedRow(task) {
-        var newTaskCard = $("<h5>");
-        var newTaskName = $("<li>");
+        var newTaskCard = $("<li>");
+        var addBtn = $("<button>");
+        addBtn.html("<i class='fas fa-plus'></i>");
+        addBtn.addClass("add btn");
+        var newTaskName = $("<h5>");
         newTaskName.text(task.task);
+        newTaskCard.append(addBtn);
         newTaskCard.append(newTaskName);
-        newTaskCard.addClass("complete-task")
         newTaskCard.data("task", task);
         return newTaskCard;
     }

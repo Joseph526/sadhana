@@ -389,7 +389,7 @@ input[type=search]:focus {
     margin-bottom: 10px;
 }
 
-.task-container .btn {
+.task-container .btn, .completed-task-container .btn {
     border-radius: 50%;
     margin-right: 5px;
     background-color: #dfdcd3;
@@ -398,12 +398,15 @@ input[type=search]:focus {
     width: 40px;
 }
 
-.task-container h5 {
+.task-container h5, .completed-task-container h5 {
     display: inline;
 }
 
-.complete-task {
-    color: #dfdcd3;
+.completed-task-container li {
+    background-color: rgba(223, 220, 211, .3);
     text-decoration: line-through;
-    display: inline;
+    border-radius: 20px;
+    padding: 5px;
+    list-style-type: none;
+    margin-bottom: 10px;
 }
