@@ -7,6 +7,7 @@ var bodyParser = require("body-parser");
 var env = require("dotenv").load();
 var exphbs = require("express-handlebars");
 var cookieParser = require("cookie-parser");
+var utils = require("./config/passport/utils.js");
 
 var app = express();
 var PORT = process.env.PORT || 3000;
@@ -32,7 +33,7 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 // Routes
-require("./routes/post-route.js")(app, passport, db.User);
+require("./routes/post-route.js")(app, passport, db.User, utils);
 require("./routes/task-route.js")(app, db.Task);
 
 
