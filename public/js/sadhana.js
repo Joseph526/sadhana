@@ -49,7 +49,7 @@ $(document).ready(function () {
         });
 
     // Button jQuery for user info save into sessionStorage
-    $("#sign-up, #log-in").on("click", function(event) {
+    $("#sign-up, #log-in").on("click", function (event) {
         // Capture user input
         var saveUser = {
             email: $("#email").val().trim()
@@ -58,8 +58,8 @@ $(document).ready(function () {
         sessionStorage.clear();
         sessionStorage.setItem("email", saveUser.email);
     });
-    
-    
+
+
 
     var habits = ["coding", "running", "reading", "machine-learning"];
     var daysInMay = 31;
@@ -75,6 +75,7 @@ $(document).ready(function () {
             for (var j = 0; j < daysInMay; j++) {
                 var sadhaSquare = $("<div>");
                 sadhaSquare.addClass("square");
+                sadhaSquare.attr("id", habits[i] + "-" + (j + 1));
                 $("#" + habits[i]).append(sadhaSquare);
             }
         }
@@ -85,12 +86,14 @@ $(document).ready(function () {
     // TASKS
 
     var taskContainer = $(".task-container");
+    var completedTaskContainer = $(".completed-task-container");
     var tasks;
 
     var taskInput = $("#task-input");
 
+    // Get Today's tasks!
     function getTasks() {
-        $.get("/api/tasks/todo/" + sessionStorage.getItem("id"), function(data) {
+        $.get("/api/tasks/todo/" + sessionStorage.getItem("id"), function (data) {
             console.log("Tasks", data);
             tasks = data;
             initializeRows();
@@ -101,27 +104,64 @@ $(document).ready(function () {
         taskContainer.empty();
         var tasksToAdd = [];
         for (var i = 0; i < tasks.length; i++) {
-            tasksToAdd.push(createNewRow(tasks[i]));
+            if (!tasks[i].complete && moment(tasks[i].due).format('l') === moment().format('l')) {
+                tasksToAdd.push(createNewRow(tasks[i]));
+            }
         }
         taskContainer.append(tasksToAdd)
     }
 
     function createNewRow(task) {
-        var newTaskCard = $("<div>");
-        var deleteBtn = $("<button>");
-        deleteBtn.text("x");
-        deleteBtn.addClass("delete btn btn-danger");
+        var newTaskCard = $("<li>");
+        var completeBtn = $("<button>");
+        completeBtn.html("<i class='fas fa-times'></i>");
+        completeBtn.addClass("complete btn");
         var deferBtn = $("<button>");
-        deferBtn.text(">");
-        deferBtn.addClass("btn btn-primary");
+        deferBtn.html("<i class='fas fa-angle-right'></i>");
+        deferBtn.addClass("defer btn");
         var newTaskName = $("<h5>");
         newTaskName.text(task.task);
-        newTaskCard.append(deleteBtn);
+        newTaskCard.append(completeBtn);
         newTaskCard.append(deferBtn);
         newTaskCard.append(newTaskName);
+        newTaskCard.data("task", task);
         return newTaskCard;
     }
 
+    // Get Today's completed tasks!
+    function getCompletedTasks() {
+        $.get("/api/tasks/todo/" + sessionStorage.getItem("id"), function (data) {
+            console.log("Tasks", data);
+            tasks = data;
+            initializeCompletedRows();
+        })
+    }
+
+    function initializeCompletedRows() {
+        completedTaskContainer.empty();
+        var tasksToAdd = [];
+        for (var i = 0; i < tasks.length; i++) {
+            if (tasks[i].complete && moment(tasks[i].due).format('l') === moment().format('l')) {
+                tasksToAdd.push(createCompletedRow(tasks[i]));
+            }
+        }
+        completedTaskContainer.append(tasksToAdd)
+    }
+
+    function createCompletedRow(task) {
+        var newTaskCard = $("<li>");
+        var addBtn = $("<button>");
+        addBtn.html("<i class='fas fa-plus'></i>");
+        addBtn.addClass("add btn");
+        var newTaskName = $("<h5>");
+        newTaskName.text(task.task);
+        newTaskCard.append(addBtn);
+        newTaskCard.append(newTaskName);
+        newTaskCard.data("task", task);
+        return newTaskCard;
+    }
+
+    // CREATE a new task
     $(document).on("submit", "#add-task", newTask)
 
     function newTask(event) {
@@ -144,8 +184,108 @@ $(document).ready(function () {
         $.post("/api/tasks/todo", taskData)
             .then(getTasks);
     }
-    
+
+    // COMPLETE a task
+    var habitsCommit = [];
+
+    $(document).on("click", "button.complete", handleTaskComplete);
+
+    function handleTaskComplete() {
+        var currentTask = $(this)
+            .parent()
+            .data("task");
+
+        var id = currentTask.id;
+
+        // THIS DOES NOT STAY AFTER REFRESH OR RE-LOG-IN!!!!!!!!!!!!
+        // I think the solution involves creating a Habits table and pushing to a new array and looping through it
+        // But I don't want to work on that right now :-/
+        if (habits.includes(currentTask.task)) {
+            habitsCommit.push(currentTask.task + "-" + moment().format('D'));
+        }
+
+        makeCommitSquares();
+
+        var checkOffTask = {
+            complete: true,
+            completedAt: moment().format()
+        };
+
+        $.ajax("api/tasks/todo/id/" + id, {
+            type: "PUT",
+            data: checkOffTask
+        }).then(function () {
+            console.log("You completed this task!");
+            getTasks();
+            getCompletedTasks();
+        })
+    }
+
+    // DEFER A TASK
+    $(document).on("click", "button.defer", handleTaskDefer);
+
+    function handleTaskDefer() {
+
+        var currentTask = $(this)
+            .parent()
+            .data("task");
+
+        var id = currentTask.id;
+        var tomorrow = moment().add(1, 'day').format();
+        console.log(tomorrow);
+
+        var deferTaskToTommorow = {
+            due: tomorrow
+        };
+
+        $.ajax("api/tasks/todo/id/" + id, {
+            type: "PUT",
+            data: deferTaskToTommorow
+        }).then(function () {
+            console.log("You put it off to tomorrow");
+            getTasks();
+        })
+    }
+
+    // RE-ADD a task
+    $(document).on("click", "button.add", handleTaskAdd);
+
+    function handleTaskAdd() {
+        var currentTask = $(this)
+            .parent()
+            .data("task");
+
+        var id = currentTask.id;
+
+        var addBackTask = {
+            complete: false,
+            completedAt: null
+        };
+
+        $.ajax("api/tasks/todo/id/" + id, {
+            type: "PUT",
+            data: addBackTask
+        }).then(function () {
+            console.log("You completed this task!");
+            getTasks();
+            getCompletedTasks();
+        })
+    }
+
+
+    getTasks();
+    getCompletedTasks();
+
+    function makeCommitSquares() {
+        for (var i = 0; i < habitsCommit.length; i++) {
+            $("#" + habitsCommit[i]).addClass("commit-square");
+        }
+    }
+
+    // makeCommitSquares();
+
+
     // Short timeout to fix async bug on page load
     setTimeout(getTasks, 100);
-    
+
 });

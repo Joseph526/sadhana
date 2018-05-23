@@ -31,7 +31,7 @@ body {
 
 /* Welcome Page */
 .sadhana-welcome {
-    height: 90vh;
+    height: 95vh;
     background-color: rgba(0,0,0,.1);
     display: block;
     position: relative;
@@ -201,7 +201,7 @@ input[type=text]:focus, input[type=password]:focus, input[type=email]:focus {
 }
 
 .profile {
-    max-width: 300px;
+    max-width: 200px;
     border-radius: 50%;
     margin: 20px;
 }
@@ -282,7 +282,7 @@ input[type=text]:focus, input[type=password]:focus, input[type=email]:focus {
     display: inline-block;
 }
 
-.user-navbar a {
+a {
     color: #fff;
 }
 
@@ -322,6 +322,10 @@ input[type=search]:focus {
 
 .sidebar .nav-item {
     margin-bottom: 20px;
+}
+
+.dropdown-item {
+    color: #333;
 }
 
 #lotus-logo {
@@ -367,3 +371,43 @@ input[type=search]:focus {
     margin-right: 5px;
     display: inline-block;
 }
+
+.commit-square {
+    background-color: #072892;
+}
+
+/* To Do */
+.task-container {
+    display: inline;
+}
+
+.task-container li {
+    background-color: rgba(223, 220, 211, .3);
+    border-radius: 20px;
+    padding: 5px;
+    list-style-type: none;
+    margin-bottom: 10px;
+}
+
+.task-container .btn, .completed-task-container .btn {
+    border-radius: 50%;
+    margin-right: 5px;
+    background-color: #dfdcd3;
+    color: #fff;
+    height: 40px;
+    width: 40px;
+}
+
+.task-container h5, .completed-task-container h5 {
+    display: inline;
+}
+
+.completed-task-container li {
+    background-color: rgba(223, 220, 211, .3);
+    text-decoration: line-through;
+    border-radius: 20px;
+    padding: 5px;
+    list-style-type: none;
+    margin-bottom: 10px;
+}
+
