@@ -1,129 +1,129 @@
 <div class="dashboard">
     <div class="container-fluid">
         <div class="row">
-{{> sidebar }}
-                <div class="main">
-                    <h2>You found the pomodoro timer page</h2>
+            {{> sidebar }}
+            <div class="main">
+                <h2>You found the pomodoro timer page</h2>
 
-                    <input id="25start" type="button" value="Click here to begin your 25 minutes of work!" />
+                <input id="25start" type="button" value="Click here to begin your 25 minutes of work!" />
 
-                    <div id="timer">
-                        <input id="minutes" type="text" style="width: 24px; border: none; background-color:none; font-size: 14px;"> minutes and
-                        <input id="seconds" type="text" style="width: 24px; border: none; background-color:none; font-size: 14px"> seconds.
-                    </div>
+                <div id="timer">
+                    <input id="minutes" type="text" style="width: 24px; border: none; background-color:none; font-size: 14px;"> minutes and
+                    <input id="seconds" type="text" style="width: 24px; border: none; background-color:none; font-size: 14px"> seconds.
                 </div>
+            </div>
 
 
 
-                <!-- Trigger/Open The Modal -->
-                {{!-- <button id="myBtn">Open Modal</button> --}}
+            <!-- Trigger/Open The Modal -->
+            {{!--
+            <button id="myBtn">Open Modal</button> --}}
 
-                <!-- The Modal -->
-                <div id="modal25" class="modal">
+            <!-- The Modal -->
+            <div id="modal25" class="modal">
 
-                    <!-- Modal content -->
-                    <div class="modal-content">
-                        <span class="close">&times;</span>
-                        <p>You just finished 25 minutes of work!</p>
-                        <p>What did you accomplish?</p>
-                        <form>
-                            Task name:
-                            <br>
-                            <input id="topic" type="text" name="topicname">
-                            <br> Details:
-                            <br>
-                            <input id="details" type="text" name="detailsname">
-                            <br>
-                            <input type="submit" value="Submit">
-                        </form>
-                    </div>
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <p>You just finished 25 minutes of work!</p>
+                    <p>What did you accomplish?</p>
+                    <form>
+                        Task name:
+                        <br>
+                        <input id="topic" type="text" name="topicname">
+                        <br> Details:
+                        <br>
+                        <input id="details" type="text" name="detailsname">
+                        <br>
+                        <input type="submit" value="Submit">
+                    </form>
                 </div>
+            </div>
 
-                <script>
-                    // MODAL
+            <script>
+                // MODAL
 
-                    function modal() {
+                function modal() {
 
-                        // Get the modal
-                        var modal = document.getElementById("modal25");
+                    // Get the modal
+                    var modal = document.getElementById("modal25");
 
-                        // Get the button that opens the modal
-                        {{!-- var btn = document.getElementById("myBtn"); --}}
+                    // Get the button that opens the modal
+                    { { !-- var btn = document.getElementById("myBtn"); --} }
 
-                        // Get the <span> element that closes the modal
-                        var span = document.getElementsByClassName("close");
+                    // Get the <span> element that closes the modal
+                    var span = document.getElementsByClassName("close");
 
-                        // When the user clicks on the button, open the modal 
-                        modal.style.display = "block";
+                    // When the user clicks on the button, open the modal 
+                    modal.style.display = "block";
 
-                        // When the user clicks on <span> (x), close the modal
-                        span.onclick = function () {
+                    // When the user clicks on <span> (x), close the modal
+                    span.onclick = function () {
+                        modal.style.display = "none";
+                    }
+
+                    // When the user clicks anywhere outside of the modal, close it
+                    window.onclick = function (event) {
+                        if (event.target == modal) {
                             modal.style.display = "none";
                         }
+                    }
+                }
 
-                        // When the user clicks anywhere outside of the modal, close it
-                        window.onclick = function (event) {
-                            if (event.target == modal) {
-                                modal.style.display = "none";
-                            }
-                        }
+
+                //COUNTDOWN GLOBAL VARIABLES
+                // set minutes and seconds globally
+                var mins;
+                var secs;
+
+                minutes = document.getElementById("minutes");
+                seconds = document.getElementById("seconds");
+
+                //TWENTY FIVE MINUTE COUNTDOWN
+
+                function countdown25() {
+                    mins = 25;
+                    secs = mins * 60;
+
+                    console.log('countdown initiated.');
+                    setTimeout(Decrement, 1000);
+                }
+
+
+                function Decrement() {
+                    if (minutes.value == 0 && seconds.value == 1) {
+                        modal();
+                        return;
+                        console.log("seconds=0");
                     }
 
-
-                    //COUNTDOWN GLOBAL VARIABLES
-                    // set minutes and seconds globally
-                    var mins;
-                    var secs;
-
-                    minutes = document.getElementById("minutes");
-                    seconds = document.getElementById("seconds");
-
-                    //TWENTY FIVE MINUTE COUNTDOWN
-
-                    function countdown25() {
-                        mins = 25;
-                        secs = mins * 60;
-
-                        console.log('countdown initiated.');
-                        setTimeout(Decrement, 1000);
+                    else {
+                        minutes.value = getminutes();
+                        seconds.value = getseconds();
                     }
 
+                    secs--;
+                    setTimeout(Decrement, 1000);
+                }
 
-                    function Decrement() {
-                        if (minutes.value == 0 && seconds.value == 1) 
-                        {
-                            modal();
-                            return;
-                            console.log("seconds=0");
-                        }
+                function getminutes() {
+                    // minutes is seconds divided by 60, rounded down
+                    mins = Math.floor(secs / 60);
+                    console.log("get minutes initiated")
+                    return mins;
+                }
+                function getseconds() {
+                    // take mins remaining (as seconds) away from total seconds remaining
+                    console.log("get seconds initiated");
+                    return secs - Math.round(mins * 60);
+                }
 
-                        else {
-                            minutes.value = getminutes();
-                            seconds.value = getseconds();                    
-                        }
+                $('#25start').click(countdown25);
 
-                        secs--;
-                        setTimeout(Decrement, 1000);
-                    }
+            </script>
+            </head>
 
-                    function getminutes() {
-                        // minutes is seconds divided by 60, rounded down
-                        mins = Math.floor(secs / 60);
-                        console.log("get minutes initiated")
-                        return mins;
-                    }
-                    function getseconds() {
-                        // take mins remaining (as seconds) away from total seconds remaining
-                        console.log("get seconds initiated");
-                        return secs - Math.round(mins * 60);
-                    }
-
-                    $('#25start').click(countdown25);
-
-                </script>
-                </head>
-
-                <body>
+            <body>
         </div>
         </main>
     </div>

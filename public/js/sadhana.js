@@ -111,6 +111,23 @@ $(document).ready(function () {
         taskContainer.append(tasksToAdd)
     }
 
+    function createNewRow(task) {
+        var newTaskCard = $("<li>");
+        var completeBtn = $("<button>");
+        completeBtn.html("<i class='fas fa-times'></i>");
+        completeBtn.addClass("complete btn");
+        var deferBtn = $("<button>");
+        deferBtn.html("<i class='fas fa-angle-right'></i>");
+        deferBtn.addClass("defer btn");
+        var newTaskName = $("<h5>");
+        newTaskName.text(task.task);
+        newTaskCard.append(completeBtn);
+        newTaskCard.append(deferBtn);
+        newTaskCard.append(newTaskName);
+        newTaskCard.data("task", task);
+        return newTaskCard;
+    }
+
     // Get Today's completed tasks!
     function getCompletedTasks() {
         $.get("/api/tasks/todo/" + sessionStorage.getItem("id"), function (data) {
@@ -125,25 +142,18 @@ $(document).ready(function () {
         var tasksToAdd = [];
         for (var i = 0; i < tasks.length; i++) {
             if (tasks[i].complete && moment(tasks[i].due).format('l') === moment().format('l')) {
-                tasksToAdd.push(createNewRow(tasks[i]));
+                tasksToAdd.push(createCompletedRow(tasks[i]));
             }
         }
         completedTaskContainer.append(tasksToAdd)
     }
 
-    function createNewRow(task) {
-        var newTaskCard = $("<div>");
-        var completeBtn = $("<button>");
-        completeBtn.text("x");
-        completeBtn.addClass("complete btn btn-danger");
-        var deferBtn = $("<button>");
-        deferBtn.text(">");
-        deferBtn.addClass("defer btn btn-primary");
-        var newTaskName = $("<h5>");
+    function createCompletedRow(task) {
+        var newTaskCard = $("<h5>");
+        var newTaskName = $("<li>");
         newTaskName.text(task.task);
-        newTaskCard.append(completeBtn);
-        newTaskCard.append(deferBtn);
         newTaskCard.append(newTaskName);
+        newTaskCard.addClass("complete-task")
         newTaskCard.data("task", task);
         return newTaskCard;
     }
@@ -173,6 +183,8 @@ $(document).ready(function () {
     }
 
     // COMPLETE a task
+    var habitsCommit = [];
+
     $(document).on("click", "button.complete", handleTaskComplete);
 
     function handleTaskComplete() {
@@ -186,8 +198,11 @@ $(document).ready(function () {
         // I think the solution involves creating a Habits table and pushing to a new array and looping through it
         // But I don't want to work on that right now :-/
         if (habits.includes(currentTask.task)) {
-            $("#" + currentTask.task + "-" + moment().format('D')).addClass("commit-square");
+            habitsCommit.push(currentTask.task + "-" + moment().format('D'));
+            // $("#" + currentTask.task + "-" + moment().format('D')).addClass("commit-square");
         }
+
+        makeCommitSquares();
 
         var checkOffTask = {
             complete: true
@@ -232,5 +247,13 @@ $(document).ready(function () {
 
     getTasks();
     getCompletedTasks();
+
+    function makeCommitSquares() {
+        for (var i = 0; i < habitsCommit.length; i++) {
+            $("#" + habitsCommit[i]).addClass("commit-square");
+        }
+    }
+
+    // makeCommitSquares();
 
 });

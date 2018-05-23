@@ -375,3 +375,35 @@ input[type=search]:focus {
 .commit-square {
     background-color: #072892;
 }
+
+/* To Do */
+.task-container {
+    display: inline;
+}
+
+.task-container li {
+    background-color: rgba(223, 220, 211, .3);
+    border-radius: 20px;
+    padding: 5px;
+    list-style-type: none;
+    margin-bottom: 10px;
+}
+
+.task-container .btn {
+    border-radius: 50%;
+    margin-right: 5px;
+    background-color: #dfdcd3;
+    color: #fff;
+    height: 40px;
+    width: 40px;
+}
+
+.task-container h5 {
+    display: inline;
+}
+
+.complete-task {
+    color: #dfdcd3;
+    text-decoration: line-through;
+    display: inline;
+}
