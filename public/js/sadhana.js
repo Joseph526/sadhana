@@ -75,7 +75,7 @@ $(document).ready(function () {
             for (var j = 0; j < daysInMay; j++) {
                 var sadhaSquare = $("<div>");
                 sadhaSquare.addClass("square");
-                sadhaSquare.attr("id", habits[i] + "-" + (j+1));
+                sadhaSquare.attr("id", habits[i] + "-" + (j + 1));
                 $("#" + habits[i]).append(sadhaSquare);
             }
         }
@@ -241,9 +241,33 @@ $(document).ready(function () {
         $.ajax("api/tasks/todo/id/" + id, {
             type: "PUT",
             data: deferTaskToTommorow
-        }).then(function() {
+        }).then(function () {
             console.log("You put it off to tomorrow");
             getTasks();
+        })
+    }
+
+    // RE-ADD a task
+    $(document).on("click", "button.add", handleTaskAdd);
+
+    function handleTaskAdd() {
+        var currentTask = $(this)
+            .parent()
+            .data("task");
+
+        var id = currentTask.id;
+
+        var addBackTask = {
+            complete: false
+        };
+
+        $.ajax("api/tasks/todo/id/" + id, {
+            type: "PUT",
+            data: addBackTask
+        }).then(function () {
+            console.log("You completed this task!");
+            getTasks();
+            getCompletedTasks();
         })
     }
 
@@ -259,8 +283,8 @@ $(document).ready(function () {
 
     // makeCommitSquares();
 
-    
+
     // Short timeout to fix async bug on page load
     setTimeout(getTasks, 100);
-    
+
 });
