@@ -404,6 +404,7 @@ input[type=search]:focus {
 
 .completed-task-container li {
     background-color: rgba(223, 220, 211, .3);
+    opacity: .3;
     text-decoration: line-through;
     border-radius: 20px;
     padding: 5px;

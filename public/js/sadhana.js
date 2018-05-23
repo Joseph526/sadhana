@@ -288,4 +288,117 @@ $(document).ready(function () {
     // Short timeout to fix async bug on page load
     setTimeout(getTasks, 100);
 
+    // HABITS
+
+    // CREATE a new task
+    $(document).on("submit", "#add-goal", newGoal)
+
+    var goalInput = $("#goal-input")
+
+    function newGoal(event) {
+        event.preventDefault();
+        if (!goalInput.val().trim()) {
+            return;
+        }
+
+        prependGoal({
+            habit: goalInput
+                .val()
+                .trim(),
+            monday: $("input[name=Monday]").is(":checked"),
+            tuesday: $("input[name=Tuesday]").is(":checked"),
+            wednesday: $("input[name=Wednesday]").is(":checked"),
+            thursday: $("input[name=Thursday]").is(":checked"),
+            friday: $("input[name=Friday]").is(":checked"),
+            saturday: $("input[name=Saturday]").is(":checked"),
+            sunday: $("input[name=Sunday]").is(":checked"),
+            UserId: sessionStorage.getItem("id")
+        });
+
+        goalInput.val('');
+    };
+
+    function prependGoal(goalData) {
+        $.post("/api/goals/habit", goalData)
+            .then(console.log("success"));
+    }
+
+    var goalContainer = $(".goal-container");
+    var goals;
+
+    // Get Today's tasks!
+    function getTasks() {
+        $.get("/api/goals/habit/" + sessionStorage.getItem("id"), function (data) {
+            console.log("Goals", data);
+            goals = data;
+            initializeRows();
+        })
+    }
+
+    function initializeRows() {
+        goalContainer.empty();
+        var goalsToAdd = [];
+        for (var i = 0; i < goals.length; i++) {
+            // if (!tasks[i].complete && moment(tasks[i].due).format('l') === moment().format('l')) {
+                goalsToAdd.push(createNewRow(goals[i]));
+            // }
+        }
+        goalContainer.append(goalsToAdd)
+    }
+
+    function createNewRow(goal) {
+        var newGoalCard = $("<li>");
+        var newGoalName = $("<h5>");
+        newGoalName.text(goal.habit);
+
+        newGoalCard.append(newGoalName);
+
+
+        if (goal.monday) {
+            var monday = $("<div>");
+            monday.text(goal.monday);
+            newGoalCard.append(monday);
+        }
+
+        if (goal.tuesday) {
+            var tuesday = $("<div>");
+            saturday.text(goal.tuesday);
+            newGoalCard.append(tuesday);
+        }
+
+        if (goal.wednesday) {
+            var wednesday = $("<div>");
+            wednesday.text(goal.wednesday);
+            newGoalCard.append(wednesday);
+        }
+        if (goal.thursday) {
+            var thursday = $("<div>");
+            saturday.text(goal.thursday);
+            newGoalCard.append(thursday);
+        }
+
+        if (goal.friday) {
+            var friday = $("<div>");
+            friday.text(goal.friday);
+            newGoalCard.append(friday);
+        }
+
+
+        if (goal.saturday) {
+            var saturday = $("<div>");
+            saturday.text(goal.saturday);
+            newGoalCard.append(saturday);
+        }
+
+        if (goal.sunday) {
+            var sunday = $("<div>");
+            sunday.text(goal.sunday);
+            newGoalCard.append(sunday);
+        }
+
+        newGoalCard.data("goal", goal);
+        return newGoalCard;
+    }
+
+
 });
