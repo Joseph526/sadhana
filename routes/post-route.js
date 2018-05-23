@@ -7,7 +7,7 @@ var router = express.Router();
 // Routes
 // =============================================================
 
-module.exports = function(router, passport, User) {
+module.exports = function(router, passport, User, utils) {
     // Landing Page
     router.get("/", function(req, res) {
         res.render("index");
@@ -36,11 +36,55 @@ module.exports = function(router, passport, User) {
         failureRedirect: "/"
     }));
 
-    // Post route for login
-    router.post("/log_in", passport.authenticate("local-signin", {
-        successRedirect: "/dashboard",
+    // Post route for login (non-Remember Me)
+    // router.post("/log_in", passport.authenticate("local-signin", {
+    //     successRedirect: "/dashboard",
+    //     failureRedirect: "/log_in"
+    // }));
+
+    // Post route for login (Remember Me)
+    router.post("/log_in", passport.authenticate("remember-me", {
+        // successRedirect: "/dashboard",
         failureRedirect: "/log_in"
-    }));
+    }),
+    function(req, res, next) {
+        // Issue a remember me cookie if the option was checked
+        if (!req.body.rememberme) {
+            return next();
+        }
+        issueToken(req.user, function(err, token) {
+            if (err) {
+                return next(err);
+            }
+            res.cookie("remember-me", token, { path: "/", httpOnly: true, maxAge: 604800000 });
+            return next();
+        });
+    },
+    function(req, res) {
+        res.redirect("/dashboard");
+    });
+
+    function issueToken(user, done) {
+        var token = utils.randomString(64);
+        saveRememberMeToken(token, user.id, function (err) {
+            if (err) { return done(err); }
+            return done(null, token);
+        });
+    };
+
+    // var tokens = {};
+
+    function consumeRememberMeToken(token, fn) {
+        var uid = tokens[token];
+        // invalidate the single-use token
+        delete tokens[token];
+        return fn(null, uid);
+    };
+
+    function saveRememberMeToken(token, uid, fn) {
+        tokens[token] = uid;
+        return fn();
+    };
 
     // Function to verify the user is logged in
     function isLoggedIn(req, res, next) {
