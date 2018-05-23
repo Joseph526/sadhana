@@ -201,7 +201,7 @@ $(document).ready(function () {
         // THIS DOES NOT STAY AFTER REFRESH OR RE-LOG-IN!!!!!!!!!!!!
         // I think the solution involves creating a Habits table and pushing to a new array and looping through it
         // But I don't want to work on that right now :-/
-        if (habits.includes(currentTask.task)) {
+        if (goalArray.includes(currentTask.task)) {
             habitsCommit.push(currentTask.task + "-" + moment().format('D'));
         }
 
