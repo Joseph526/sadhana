@@ -4,7 +4,7 @@ var utils = require("./utils.js");
 module.exports = function(passport, user) {
     var User = user;
     var LocalStrategy = require("passport-local").Strategy;
-    var RememberMeStrategy = require("../..").Strategy;
+    var RememberMeStrategy = require("passport-remember-me-extended").Strategy;
 
     // serialize
     passport.serializeUser(function(user, done) {
