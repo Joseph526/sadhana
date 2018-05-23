@@ -107,16 +107,50 @@ module.exports = function(passport, user) {
     // This strategy consumes a remember me token, supplying the user the
     // token was originally issued to.  The token is single-use, so a new
     // token is then issued to replace it.
-    passport.use("remember-me", new RememberMeStrategy(
-        function (token, done) {
+    passport.use("remember-me", new RememberMeStrategy({
+        // by default, local strategy uses username and password, we will override with email
+        usernameField: "email",
+        passwordField: "password",
+        passReqToCallback: true // allows us to pass back the entire request to the callback
+    },
+        function (token, req, email, password, done) {
             consumeRememberMeToken(token, function (err, uid) {
                 if (err) { return done(err); }
                 if (!uid) { return done(null, false); }
 
-                findById(uid, function (err, user) {
-                    if (err) { return done(err); }
-                    if (!user) { return done(null, false); }
-                    return done(null, user);
+                // findById(uid, function (err, user) {
+                //     if (err) { return done(err); }
+                //     if (!user) { return done(null, false); }
+                //     return done(null, user);
+                // });
+
+                var User = user;
+                var isValidPassword = function(userpass, password) {
+                    return bCrypt.compareSync(password, userpass);
+                };
+
+                User.findOne({
+                    where: {
+                        email: email
+                    }
+                }).then(function(user) {
+                    if (!user) {
+                        return done(null, false, {
+                            message: "Email does not exist"
+                        });
+                    }
+                    if (!isValidPassword(user.password, password)) {
+                        return done(null, false, {
+                            message: "Incorrect password."
+                        });
+                    }
+                    var userInfo = user.get();
+                    return done(null, userInfo);
+                }).catch(function(err) {
+                    console.log("Error:", err);
+                    return done(null, false, {
+                        message: "Something went wrong with your Signin"
+                    });
                 });
             });
         },
