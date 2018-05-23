@@ -3,9 +3,31 @@
         <div class="row">
             {{> sidebar }}
             <div class="main">
-                <h2>You found the goals page</h2>
+                <form id="add-goal" class="button-size">
+                    <label for="goal">New hashtag</label>
+                    <input type="text" id="goal-input" name="goal"></input>
+                    <p>How often?</p>
+                    <label for="Monday">Monday</label>
+                    <input type="checkbox" id="Monday" name="Monday">
+                    <label for="Tuesday">Tueday</label>
+                    <input type="checkbox" id="Tuesday" name="Tuesday">
+                    <label for="Wednesday">Wednesday</label>
+                    <input type="checkbox" id="Wednesday" name="Wednesday">
+                    <label for="Thursday">Thursday</label>
+                    <input type="checkbox" id="Thursday" name="Thursday">
+                    <label for="Friday">Friday</label>
+                    <input type="checkbox" id="Friday" name="Friday">
+                    <label for="Saturday">Saturday</label>
+                    <input type="checkbox" id="Saturday" name="Saturday">
+                    <label for="Sunday">Sunday</label>
+                    <input type="checkbox" id="Sunday" name="Sunday">
+                    <button type="submit">Save</button>
+                </form>
             </div>
-            </main>
+            <div class="main">
+                <h2>My goals</h2>
+                <div class="goal-container"></div>
+            </div>
         </div>
     </div>
 
