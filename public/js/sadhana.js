@@ -202,13 +202,13 @@ $(document).ready(function () {
         // But I don't want to work on that right now :-/
         if (habits.includes(currentTask.task)) {
             habitsCommit.push(currentTask.task + "-" + moment().format('D'));
-            // $("#" + currentTask.task + "-" + moment().format('D')).addClass("commit-square");
         }
 
         makeCommitSquares();
 
         var checkOffTask = {
-            complete: true
+            complete: true,
+            completedAt: moment().format()
         };
 
         $.ajax("api/tasks/todo/id/" + id, {
@@ -258,7 +258,8 @@ $(document).ready(function () {
         var id = currentTask.id;
 
         var addBackTask = {
-            complete: false
+            complete: false,
+            completedAt: null
         };
 
         $.ajax("api/tasks/todo/id/" + id, {

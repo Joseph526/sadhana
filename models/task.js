@@ -18,6 +18,10 @@ module.exports = function (sequelize, Sequelize) {
             type: Sequelize.DATE,
             allowNull: false,
             defaultValue: Sequelize.NOW
+        },
+        completedAt: {
+            type: Sequelize.STRING,
+            allowNull: true,
         }
     });
 
