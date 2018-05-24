@@ -24,20 +24,20 @@
 
 <body>
     <script type="text/javascript">
-        // Query DB for user info save into sessionStorage
-        var userEmail = sessionStorage.getItem("email");
+        // Query DB for user info save into localStorage
+        var userEmail = localStorage.getItem("email");
         $.get("/api/user/" + userEmail, function(data) {
-            // Store all content into sessionStorage
-            sessionStorage.setItem("firstname", data.firstname);
-            sessionStorage.setItem("lastname", data.lastname);
-            sessionStorage.setItem("id", data.id);
+            // Store all content into localStorage
+            localStorage.setItem("firstname", data.firstname);
+            localStorage.setItem("lastname", data.lastname);
+            localStorage.setItem("id", data.id);
         }).then(function(result) {
             // Grab the user's name for use on the DOM
-            var userName = sessionStorage.getItem("firstname");
+            var userName = localStorage.getItem("firstname");
             // Set the document title with user's name
             document.title = userName + "'s sadhana";
             // Set the navbar with user's name
-            $("#userName").text(sessionStorage.getItem("firstname"));
+            $("#userName").text(localStorage.getItem("firstname"));
         });
     </script>
 
