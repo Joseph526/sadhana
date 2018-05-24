@@ -65,6 +65,9 @@ $(document).ready(function () {
     var completedTaskContainer = $(".completed-task-container");
     var tasks;
 
+    var habitsCommit = [];
+    var goalArray = [];
+
     var taskInput = $("#task-input");
 
     // Get Today's tasks!
@@ -76,9 +79,9 @@ $(document).ready(function () {
 
             var todaysTasksArray = [];
             for (var i = 0; i < tasks.length; i ++) {
-                console.log(moment(tasks[i].due).format('dddd'));
-                console.log(moment().format('dddd'));
-                if (moment(tasks[i].due).format('dddd') === moment().format('dddd')) {
+                console.log(moment(tasks[i].due).format('l'));
+                console.log(moment().format('l'));
+                if (moment(tasks[i].due).format('l') === moment().format('l')) {
                     todaysTasksArray.push(tasks[i].task);
                 }
             }
@@ -131,7 +134,22 @@ $(document).ready(function () {
         $.get("/api/tasks/todo/" + sessionStorage.getItem("id"), function (data) {
             // console.log("Tasks", data);
             tasks = data;
+    
+            makeCommitSquares();
+
             initializeCompletedRows();
+
+            for (var i = 0; i < tasks.length; i++) {
+                // if a task is a goal and it's complete
+                if (tasks[i].complete) {
+                    // add the commit-square class to #<habit>-MO-D
+                    habitsCommit.push(tasks[i].task + "-" + moment(tasks[i].completedAt).format('D'))
+                }
+            }
+            
+            console.log("Habits Commit: " + habitsCommit)
+            makeCommitSquares();
+            
         })
     }
 
@@ -184,7 +202,7 @@ $(document).ready(function () {
     }
 
     // COMPLETE a task
-    var habitsCommit = [];
+    // var habitsCommit = [];
 
     $(document).on("click", "button.complete", handleTaskComplete);
 
@@ -198,11 +216,12 @@ $(document).ready(function () {
         // THIS DOES NOT STAY AFTER REFRESH OR RE-LOG-IN!!!!!!!!!!!!
         // I think the solution involves creating a Habits table and pushing to a new array and looping through it
         // But I don't want to work on that right now :-/
-        if (goalArray.includes(currentTask.task)) {
-            habitsCommit.push(currentTask.task + "-" + moment().format('D'));
-        }
 
-        makeCommitSquares();
+        // if (goalArray.includes(currentTask.task)) {
+        //     habitsCommit.push(currentTask.task + "-" + moment().format('D'));
+        // }
+
+        // makeCommitSquares();
 
         var checkOffTask = {
             complete: true,
@@ -216,6 +235,7 @@ $(document).ready(function () {
             // console.log("You completed this task!");
             getTasks();
             getCompletedTasks();
+
         })
     }
 
@@ -429,7 +449,7 @@ $(document).ready(function () {
 
     getGoals();
 
-    var goalArray = [];
+    // var goalArray = [];
     // var daysInMay = 31;
     var daysInMonth = moment().daysInMonth();
 
