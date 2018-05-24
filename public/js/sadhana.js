@@ -59,31 +59,6 @@ $(document).ready(function () {
         sessionStorage.setItem("email", saveUser.email);
     });
 
-
-
-    // var habits = ["coding", "running", "reading", "machine-learning"];
-    // var goalArray = [];
-    // var daysInMay = 31;
-
-    // // Generate a sadha-square
-    // function makeSadha() {
-    //     for (var i = 0; i < goalArray.length; i++) {
-    //         var goal = $("<div>");
-    //         goal.attr("id", goalArray[i]);
-    //         goal.addClass("habit");
-    //         goal.append("<p>" + goalArray[i]);
-    //         $("#sadha-squares").append(goal);
-    //         for (var j = 0; j < daysInMay; j++) {
-    //             var sadhaSquare = $("<div>");
-    //             sadhaSquare.addClass("square");
-    //             sadhaSquare.attr("id", goalArray[i] + "-" + (j + 1));
-    //             $("#" + goalArray[i]).append(sadhaSquare);
-    //         }
-    //     }
-    // };
-
-    // makeSadha();
-
     // TASKS
 
     var taskContainer = $(".task-container");
@@ -98,6 +73,25 @@ $(document).ready(function () {
             console.log("Tasks", data);
             tasks = data;
             initializeRows();
+
+            var todaysTasksArray = [];
+            for (var i = 0; i < tasks.length; i ++) {
+                if (moment(tasks[i].due).format('l') === moment().format('l')) {
+                    todaysTasksArray.push(tasks[i].task);
+                }
+            }
+            console.log(todaysTasksArray);
+            console.log(todaysHabitsArray);
+
+            for (var j = 0; j < todaysHabitsArray.length; j++) {
+                if (!todaysTasksArray.includes(todaysHabitsArray[j])) {
+                    console.log(todaysHabitsArray[j]);
+                    prependTask({
+                        task: todaysHabitsArray[j],
+                        UserId: sessionStorage.getItem("id")
+                    });
+                }
+            }
         })
     }
 
@@ -321,15 +315,14 @@ $(document).ready(function () {
 
     function prependGoal(goalData) {
         $.post("/api/goals/habit", goalData)
-            // .then(getGoals);
-            // .then(console.log("success!"));
             .then(getGoals);
 
     }
 
     var goalContainer = $(".goal-container");
     var goals;
-
+    var todaysHabitsArray = [];
+    var todaysTasksArray;
 
     function getGoals() {
         $.get("/api/goals/habit/" + sessionStorage.getItem("id"), function (data) {
@@ -337,6 +330,15 @@ $(document).ready(function () {
             goals = data;
             initializeGoalRows();
             makeGoalMap();
+
+            // var todaysHabitsArray = [];
+            for (var i = 0; i < goals.length; i ++) {
+                if (moment(goals[i].due).format('l') === moment().format('l') && !todaysHabitsArray.includes(goals[i].habit)) {
+                    todaysHabitsArray.push(goals[i].habit);
+                }
+            }
+            console.log(todaysHabitsArray);
+            // return todaysHabitsArray;
         })
     }
 
@@ -348,7 +350,7 @@ $(document).ready(function () {
             // goalsToAdd.push(goals[i].habit);
         }
         goalContainer.append(goalsToAdd);
-        console.log(goalsToAdd);
+        // console.log(goalsToAdd);
     }
 
     function createNewGoalRow(goal) {
@@ -406,30 +408,30 @@ $(document).ready(function () {
 
     getGoals();
 
-    // // var habits = ["coding", "running", "reading", "machine-learning"];
     var goalArray = [];
-    var daysInMay = 31;
+    // var daysInMay = 31;
+    var daysInMonth = moment().daysInMonth();
 
     function makeGoalMap() {
         // var goalArray = [];
         for (var i = 0; i < goals.length; i++) {
             goalArray.push(goals[i].habit);
         };
-        console.log(goalArray);
+        // console.log(goalArray);
 
         makeSadha();
     };
 
-    // //  Generate a sadha-square
+    //  Generate a sadha-square
     function makeSadha() {
-        console.log(goalArray);
+        // console.log(goalArray);
         for (var i = 0; i < goalArray.length; i++) {
             var goal = $("<div>");
             goal.attr("id", goalArray[i]);
             goal.addClass("habit");
             goal.append("<p>" + goalArray[i]);
             $("#sadha-squares").append(goal);
-            for (var j = 0; j < daysInMay; j++) {
+            for (var j = 0; j < daysInMonth; j++) {
                 var sadhaSquare = $("<div>");
                 sadhaSquare.addClass("square");
                 sadhaSquare.attr("id", goalArray[i] + "-" + (j + 1));
@@ -437,6 +439,4 @@ $(document).ready(function () {
             }
         }
     };
-
-
 });
