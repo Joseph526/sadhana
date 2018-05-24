@@ -30,6 +30,7 @@ app.set("view engine", "handlebars");
 // Routes
 require("./routes/post-route.js")(app, passport, db.User);
 require("./routes/task-route.js")(app, db.Task);
+require("./routes/habit-route.js")(app, db.Habit);
 
 
 // app.use(routes);

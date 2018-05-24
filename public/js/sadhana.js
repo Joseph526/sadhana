@@ -59,44 +59,46 @@ $(document).ready(function () {
         localStorage.setItem("email", saveUser.email);
     });
 
-
-
-    var habits = ["coding", "running", "reading", "machine-learning"];
-    var daysInMay = 31;
-
-    // Generate a sadha-square
-    function makeSadha() {
-        for (var i = 0; i < habits.length; i++) {
-            var goal = $("<div>");
-            goal.attr("id", habits[i]);
-            goal.addClass("habit");
-            goal.append("<p>" + habits[i]);
-            $("#sadha-squares").append(goal);
-            for (var j = 0; j < daysInMay; j++) {
-                var sadhaSquare = $("<div>");
-                sadhaSquare.addClass("square");
-                sadhaSquare.attr("id", habits[i] + "-" + (j + 1));
-                $("#" + habits[i]).append(sadhaSquare);
-            }
-        }
-    };
-
-    makeSadha();
-
     // TASKS
 
     var taskContainer = $(".task-container");
     var completedTaskContainer = $(".completed-task-container");
     var tasks;
 
+    var habitsCommit = [];
+    var goalArray = [];
+
     var taskInput = $("#task-input");
 
     // Get Today's tasks!
     function getTasks() {
+
         $.get("/api/tasks/todo/" + localStorage.getItem("id"), function (data) {
             console.log("Tasks", data);
             tasks = data;
             initializeRows();
+
+            var todaysTasksArray = [];
+            for (var i = 0; i < tasks.length; i ++) {
+                console.log(moment(tasks[i].due).format('l'));
+                console.log(moment().format('l'));
+                if (moment(tasks[i].due).format('l') === moment().format('l')) {
+                    todaysTasksArray.push(tasks[i].task);
+                }
+            }
+            console.log("tasks array: " + todaysTasksArray);
+            console.log("habits array: " + todaysHabitsArray);
+
+            for (var j = 0; j < todaysHabitsArray.length; j++) {
+                // TODO: this doesn't allow user to defer a habit-generated task
+                if (!todaysTasksArray.includes(todaysHabitsArray[j])) {
+                    console.log(todaysHabitsArray[j]);
+                    prependTask({
+                        task: todaysHabitsArray[j],
+                        UserId: localStorage.getItem("id")
+                    });
+                }
+            }
         })
     }
 
@@ -130,10 +132,26 @@ $(document).ready(function () {
 
     // Get Today's completed tasks!
     function getCompletedTasks() {
+
         $.get("/api/tasks/todo/" + localStorage.getItem("id"), function (data) {
             console.log("Tasks", data);
             tasks = data;
+    
+            makeCommitSquares();
+
             initializeCompletedRows();
+
+            for (var i = 0; i < tasks.length; i++) {
+                // if a task is a goal and it's complete
+                if (tasks[i].complete) {
+                    // add the commit-square class to #<habit>-MO-D
+                    habitsCommit.push(tasks[i].task + "-" + moment(tasks[i].completedAt).format('D'))
+                }
+            }
+            
+            console.log("Habits Commit: " + habitsCommit)
+            makeCommitSquares();
+            
         })
     }
 
@@ -186,7 +204,7 @@ $(document).ready(function () {
     }
 
     // COMPLETE a task
-    var habitsCommit = [];
+    // var habitsCommit = [];
 
     $(document).on("click", "button.complete", handleTaskComplete);
 
@@ -197,15 +215,6 @@ $(document).ready(function () {
 
         var id = currentTask.id;
 
-        // THIS DOES NOT STAY AFTER REFRESH OR RE-LOG-IN!!!!!!!!!!!!
-        // I think the solution involves creating a Habits table and pushing to a new array and looping through it
-        // But I don't want to work on that right now :-/
-        if (habits.includes(currentTask.task)) {
-            habitsCommit.push(currentTask.task + "-" + moment().format('D'));
-        }
-
-        makeCommitSquares();
-
         var checkOffTask = {
             complete: true,
             completedAt: moment().format()
@@ -215,9 +224,10 @@ $(document).ready(function () {
             type: "PUT",
             data: checkOffTask
         }).then(function () {
-            console.log("You completed this task!");
+            // console.log("You completed this task!");
             getTasks();
             getCompletedTasks();
+
         })
     }
 
@@ -232,7 +242,7 @@ $(document).ready(function () {
 
         var id = currentTask.id;
         var tomorrow = moment().add(1, 'day').format();
-        console.log(tomorrow);
+        // console.log(tomorrow);
 
         var deferTaskToTommorow = {
             due: tomorrow
@@ -242,7 +252,7 @@ $(document).ready(function () {
             type: "PUT",
             data: deferTaskToTommorow
         }).then(function () {
-            console.log("You put it off to tomorrow");
+            // console.log("You put it off to tomorrow");
             getTasks();
         })
     }
@@ -266,7 +276,7 @@ $(document).ready(function () {
             type: "PUT",
             data: addBackTask
         }).then(function () {
-            console.log("You completed this task!");
+            // console.log("You completed this task!");
             getTasks();
             getCompletedTasks();
         })
@@ -288,4 +298,179 @@ $(document).ready(function () {
     // Short timeout to fix async bug on page load
     setTimeout(getTasks, 100);
 
+    // HABITS
+
+    // CREATE a new goal
+    $(document).on("submit", "#add-goal", newGoal)
+
+    var goalInput = $("#goal-input")
+
+    function newGoal(event) {
+        event.preventDefault();
+        if (!goalInput.val().trim()) {
+            return;
+        }
+
+        prependGoal({
+            habit: goalInput
+                .val()
+                .trim(),
+            monday: $("input[name=Monday]").is(":checked"),
+            tuesday: $("input[name=Tuesday]").is(":checked"),
+            wednesday: $("input[name=Wednesday]").is(":checked"),
+            thursday: $("input[name=Thursday]").is(":checked"),
+            friday: $("input[name=Friday]").is(":checked"),
+            saturday: $("input[name=Saturday]").is(":checked"),
+            sunday: $("input[name=Sunday]").is(":checked"),
+            UserId: localStorage.getItem("id")
+        });
+
+        goalInput.val('');
+        // TODO: automatically check M-Su inputs
+    };
+
+    function prependGoal(goalData) {
+        $.post("/api/goals/habit", goalData)
+            .then(getGoals);
+
+    }
+
+    var goalContainer = $(".goal-container");
+    var goals;
+    var todaysHabitsArray = [];
+    var todaysTasksArray;
+
+    function getGoals() {
+        $.get("/api/goals/habit/" + localStorage.getItem("id"), function (data) {
+            // console.log("Goals", data);
+            goals = data;
+            initializeGoalRows();
+            makeGoalMap();
+
+            // var todaysHabitsArray = [];
+            for (var i = 0; i < goals.length; i ++) {
+                if (goals[i].monday && moment().format('dddd') === "Monday" && !todaysHabitsArray.includes(goals[i].habit)) {
+                    todaysHabitsArray.push(goals[i].habit);
+                }
+                if (goals[i].tuesday && moment().format('dddd') === "Tuesday" && !todaysHabitsArray.includes(goals[i].habit)) {
+                    todaysHabitsArray.push(goals[i].habit);
+                }
+                if (goals[i].wednesday && moment().format('dddd') === "Wednesday" && !todaysHabitsArray.includes(goals[i].habit)) {
+                    todaysHabitsArray.push(goals[i].habit);
+                }
+                if (goals[i].thursday && moment().format('dddd') === "Thursday" && !todaysHabitsArray.includes(goals[i].habit)) {
+                    todaysHabitsArray.push(goals[i].habit);
+                }
+                if (goals[i].friday && moment().format('dddd') === "Friday" && !todaysHabitsArray.includes(goals[i].habit)) {
+                    todaysHabitsArray.push(goals[i].habit);
+                }
+                if (goals[i].saturday && moment().format('dddd') === "Saturday" && !todaysHabitsArray.includes(goals[i].habit)) {
+                    todaysHabitsArray.push(goals[i].habit);
+                }
+                if (goals[i].sunday && moment().format('dddd') === "Sunday" && !todaysHabitsArray.includes(goals[i].habit)) {
+                    todaysHabitsArray.push(goals[i].habit);
+                }
+            }
+            // console.log(todaysHabitsArray);
+            // return todaysHabitsArray;
+        })
+    }
+
+    function initializeGoalRows() {
+        goalContainer.empty();
+        var goalsToAdd = [];
+        for (var i = 0; i < goals.length; i++) {
+            goalsToAdd.push(createNewGoalRow(goals[i]));
+            // goalsToAdd.push(goals[i].habit);
+        }
+        goalContainer.append(goalsToAdd);
+        // console.log(goalsToAdd);
+    }
+
+    function createNewGoalRow(goal) {
+        var newGoalCard = $("<li>");
+        var newGoalName = $("<h5>");
+        newGoalName.text(goal.habit);
+
+        newGoalCard.append(newGoalName);
+
+        if (goal.monday) {
+            var monday = $("<div>");
+            monday.text("Monday");
+            newGoalCard.append(monday);
+        }
+
+        if (goal.tuesday) {
+            var tuesday = $("<div>");
+            tuesday.text("Tuesday");
+            newGoalCard.append(tuesday);
+        }
+
+        if (goal.wednesday) {
+            var wednesday = $("<div>");
+            wednesday.text("Wednesday");
+            newGoalCard.append(wednesday);
+        }
+        if (goal.thursday) {
+            var thursday = $("<div>");
+            thursday.text("Thursday");
+            newGoalCard.append(thursday);
+        }
+
+        if (goal.friday) {
+            var friday = $("<div>");
+            friday.text("Friday");
+            newGoalCard.append(friday);
+        }
+
+        if (goal.saturday) {
+            var saturday = $("<div>");
+            saturday.text("Saturday");
+            newGoalCard.append(saturday);
+        }
+
+        if (goal.sunday) {
+            var sunday = $("<div>");
+            sunday.text("Sunday");
+            newGoalCard.append(sunday);
+        }
+
+        newGoalCard.data("goal", goals);
+
+        return newGoalCard;
+    }
+
+    getGoals();
+
+    // var goalArray = [];
+    // var daysInMay = 31;
+    var daysInMonth = moment().daysInMonth();
+
+    function makeGoalMap() {
+        // var goalArray = [];
+        for (var i = 0; i < goals.length; i++) {
+            goalArray.push(goals[i].habit);
+        };
+        // console.log(goalArray);
+
+        makeSadha();
+    };
+
+    //  Generate a sadha-square
+    function makeSadha() {
+        // console.log(goalArray);
+        for (var i = 0; i < goalArray.length; i++) {
+            var goal = $("<div>");
+            goal.attr("id", goalArray[i]);
+            goal.addClass("habit");
+            goal.append("<p>" + goalArray[i]);
+            $("#sadha-squares").append(goal);
+            for (var j = 0; j < daysInMonth; j++) {
+                var sadhaSquare = $("<div>");
+                sadhaSquare.addClass("square");
+                sadhaSquare.attr("id", goalArray[i] + "-" + (j + 1));
+                $("#" + goalArray[i]).append(sadhaSquare);
+            }
+        }
+    };
 });

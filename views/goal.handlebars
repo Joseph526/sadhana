@@ -3,9 +3,45 @@
         <div class="row">
             {{> sidebar }}
             <div class="main">
-                <h2>You found the goals page</h2>
+                <form id="add-goal" class="button-size">
+                    <label for="goal">New hashtag</label>
+                    <input type="text" id="goal-input" name="goal"></input>
+                    <p>How often?</p>
+                    <div>
+                        <input type="checkbox" id="Monday" name="Monday" checked>
+                        <label for="Monday">Monday</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="Tuesday" name="Tuesday" checked>
+                        <label for="Tuesday">Tuesday</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="Wednesday" name="Wednesday" checked>
+                        <label for="Wednesday">Wednesday</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="Thursday" name="Thursday" checked>
+                        <label for="Thursday">Thursday</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="Friday" name="Friday" checked>
+                        <label for="Friday">Friday</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="Saturday" name="Saturday" checked>
+                        <label for="Saturday">Saturday</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="Sunday" name="Sunday" checked>
+                        <label for="Sunday">Sunday</label>
+                    </div>
+                    <button type="submit">Save</button>
+                </form>
             </div>
-            </main>
+            <div class="main">
+                <h2>My goals</h2>
+                <div class="goal-container"></div>
+            </div>
         </div>
     </div>
 
