@@ -336,7 +336,25 @@ $(document).ready(function () {
 
             // var todaysHabitsArray = [];
             for (var i = 0; i < goals.length; i ++) {
+                if (goals[i].monday && moment().format('dddd') === "Monday" && !todaysHabitsArray.includes(goals[i].habit)) {
+                    todaysHabitsArray.push(goals[i].habit);
+                }
+                if (goals[i].tuesday && moment().format('dddd') === "Tuesday" && !todaysHabitsArray.includes(goals[i].habit)) {
+                    todaysHabitsArray.push(goals[i].habit);
+                }
                 if (goals[i].wednesday && moment().format('dddd') === "Wednesday" && !todaysHabitsArray.includes(goals[i].habit)) {
+                    todaysHabitsArray.push(goals[i].habit);
+                }
+                if (goals[i].thursday && moment().format('dddd') === "Thursday" && !todaysHabitsArray.includes(goals[i].habit)) {
+                    todaysHabitsArray.push(goals[i].habit);
+                }
+                if (goals[i].friday && moment().format('dddd') === "Friday" && !todaysHabitsArray.includes(goals[i].habit)) {
+                    todaysHabitsArray.push(goals[i].habit);
+                }
+                if (goals[i].saturday && moment().format('dddd') === "Saturday" && !todaysHabitsArray.includes(goals[i].habit)) {
+                    todaysHabitsArray.push(goals[i].habit);
+                }
+                if (goals[i].sunday && moment().format('dddd') === "Sunday" && !todaysHabitsArray.includes(goals[i].habit)) {
                     todaysHabitsArray.push(goals[i].habit);
                 }
             }
