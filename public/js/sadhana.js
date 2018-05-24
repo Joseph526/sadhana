@@ -70,20 +70,23 @@ $(document).ready(function () {
     // Get Today's tasks!
     function getTasks() {
         $.get("/api/tasks/todo/" + sessionStorage.getItem("id"), function (data) {
-            console.log("Tasks", data);
+            // console.log("Tasks", data);
             tasks = data;
             initializeRows();
 
             var todaysTasksArray = [];
             for (var i = 0; i < tasks.length; i ++) {
-                if (moment(tasks[i].due).format('l') === moment().format('l')) {
+                console.log(moment(tasks[i].due).format('dddd'));
+                console.log(moment().format('dddd'));
+                if (moment(tasks[i].due).format('dddd') === moment().format('dddd')) {
                     todaysTasksArray.push(tasks[i].task);
                 }
             }
-            console.log(todaysTasksArray);
-            console.log(todaysHabitsArray);
+            console.log("tasks array: " + todaysTasksArray);
+            console.log("habits array: " + todaysHabitsArray);
 
             for (var j = 0; j < todaysHabitsArray.length; j++) {
+                // TODO: this doesn't allow user to defer a habit-generated task
                 if (!todaysTasksArray.includes(todaysHabitsArray[j])) {
                     console.log(todaysHabitsArray[j]);
                     prependTask({
@@ -126,7 +129,7 @@ $(document).ready(function () {
     // Get Today's completed tasks!
     function getCompletedTasks() {
         $.get("/api/tasks/todo/" + sessionStorage.getItem("id"), function (data) {
-            console.log("Tasks", data);
+            // console.log("Tasks", data);
             tasks = data;
             initializeCompletedRows();
         })
@@ -210,7 +213,7 @@ $(document).ready(function () {
             type: "PUT",
             data: checkOffTask
         }).then(function () {
-            console.log("You completed this task!");
+            // console.log("You completed this task!");
             getTasks();
             getCompletedTasks();
         })
@@ -227,7 +230,7 @@ $(document).ready(function () {
 
         var id = currentTask.id;
         var tomorrow = moment().add(1, 'day').format();
-        console.log(tomorrow);
+        // console.log(tomorrow);
 
         var deferTaskToTommorow = {
             due: tomorrow
@@ -237,7 +240,7 @@ $(document).ready(function () {
             type: "PUT",
             data: deferTaskToTommorow
         }).then(function () {
-            console.log("You put it off to tomorrow");
+            // console.log("You put it off to tomorrow");
             getTasks();
         })
     }
@@ -261,7 +264,7 @@ $(document).ready(function () {
             type: "PUT",
             data: addBackTask
         }).then(function () {
-            console.log("You completed this task!");
+            // console.log("You completed this task!");
             getTasks();
             getCompletedTasks();
         })
@@ -326,18 +329,18 @@ $(document).ready(function () {
 
     function getGoals() {
         $.get("/api/goals/habit/" + sessionStorage.getItem("id"), function (data) {
-            console.log("Goals", data);
+            // console.log("Goals", data);
             goals = data;
             initializeGoalRows();
             makeGoalMap();
 
             // var todaysHabitsArray = [];
             for (var i = 0; i < goals.length; i ++) {
-                if (moment(goals[i].due).format('l') === moment().format('l') && !todaysHabitsArray.includes(goals[i].habit)) {
+                if (goals[i].wednesday && moment().format('dddd') === "Wednesday" && !todaysHabitsArray.includes(goals[i].habit)) {
                     todaysHabitsArray.push(goals[i].habit);
                 }
             }
-            console.log(todaysHabitsArray);
+            // console.log(todaysHabitsArray);
             // return todaysHabitsArray;
         })
     }
