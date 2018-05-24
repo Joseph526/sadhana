@@ -213,16 +213,6 @@ $(document).ready(function () {
 
         var id = currentTask.id;
 
-        // THIS DOES NOT STAY AFTER REFRESH OR RE-LOG-IN!!!!!!!!!!!!
-        // I think the solution involves creating a Habits table and pushing to a new array and looping through it
-        // But I don't want to work on that right now :-/
-
-        // if (goalArray.includes(currentTask.task)) {
-        //     habitsCommit.push(currentTask.task + "-" + moment().format('D'));
-        // }
-
-        // makeCommitSquares();
-
         var checkOffTask = {
             complete: true,
             completedAt: moment().format()
@@ -334,6 +324,7 @@ $(document).ready(function () {
         });
 
         goalInput.val('');
+        // TODO: automatically check M-Su inputs
     };
 
     function prependGoal(goalData) {
