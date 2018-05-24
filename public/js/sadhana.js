@@ -48,15 +48,15 @@ $(document).ready(function () {
             }
         });
 
-    // Button jQuery for user info save into sessionStorage
+    // Button jQuery for user info save into localStorage
     $("#sign-up, #log-in").on("click", function (event) {
         // Capture user input
         var saveUser = {
             email: $("#email").val().trim()
         };
-        // Clear sessionStorage and save user email
-        sessionStorage.clear();
-        sessionStorage.setItem("email", saveUser.email);
+        // Clear localStorage and save user email
+        localStorage.clear();
+        localStorage.setItem("email", saveUser.email);
     });
 
 
@@ -93,7 +93,7 @@ $(document).ready(function () {
 
     // Get Today's tasks!
     function getTasks() {
-        $.get("/api/tasks/todo/" + sessionStorage.getItem("id"), function (data) {
+        $.get("/api/tasks/todo/" + localStorage.getItem("id"), function (data) {
             console.log("Tasks", data);
             tasks = data;
             initializeRows();
@@ -130,7 +130,7 @@ $(document).ready(function () {
 
     // Get Today's completed tasks!
     function getCompletedTasks() {
-        $.get("/api/tasks/todo/" + sessionStorage.getItem("id"), function (data) {
+        $.get("/api/tasks/todo/" + localStorage.getItem("id"), function (data) {
             console.log("Tasks", data);
             tasks = data;
             initializeCompletedRows();
@@ -174,7 +174,7 @@ $(document).ready(function () {
             task: taskInput
                 .val()
                 .trim(),
-            UserId: sessionStorage.getItem("id")
+            UserId: localStorage.getItem("id")
         });
 
         taskInput.val('');
